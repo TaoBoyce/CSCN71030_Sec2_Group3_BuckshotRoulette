@@ -1,15 +1,15 @@
 #pragma once
 
-enum bullet {
+typedef enum bullet {
 	BLANK = 0,
 	LIVE = 1
-};
+}BULLET;
 
 typedef struct bulletsNode {
-	bullet bullet;
+	BULLET bullet;
 	struct bulletsNode* next;
 }BulletsNode, *BulletsLink;
 
-bullet popBullet(BulletsLink* link);
+BULLET popBullet(BulletsLink* link);
 
-bullet peekBullet(BulletsLink link);
+BULLET peekBullet(BulletsLink link);
