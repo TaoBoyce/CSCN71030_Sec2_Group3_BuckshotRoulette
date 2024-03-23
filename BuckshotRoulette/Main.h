@@ -1,9 +1,12 @@
 #pragma once
 
-enum difficulty {
+#define PLAYER 0
+#define DEALER 1
+
+typedef enum difficulty {
 	EASY,
 	MEDIUM,
 	HARD
-};
+}DIFFICULTY;
 
-difficulty convertDifficultyFromBitFlag(int bitflag);
+DIFFICULTY convertDifficultyFromBitFlag(int bitflag);

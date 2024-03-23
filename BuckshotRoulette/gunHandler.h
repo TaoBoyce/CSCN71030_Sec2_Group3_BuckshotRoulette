@@ -2,6 +2,6 @@
 //tao
 //handles changing lives
 #include "bulletsHandler.h"
+#include <stdbool.h>
 
-
-bool shootGun(int lives[], BulletsLink* bullets, bool facingSelf, bool doubleDamage);
+bool shootGun(int* lives, BulletsLink* bullets, bool facingSelf, bool doubleDamage);

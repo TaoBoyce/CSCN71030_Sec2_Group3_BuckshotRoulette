@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gunHandler.c" />
     <ClCompile Include="Main.c" />
   </ItemGroup>
   <ItemGroup>
