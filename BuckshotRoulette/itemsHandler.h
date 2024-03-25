@@ -1,4 +1,6 @@
 #pragma once
+#include "stdbool.h"
+#include "bulletsHandler.h"
 
 typedef enum item {
 	EMPTY = 0,
@@ -9,3 +11,4 @@ typedef enum item {
 	HAND_SAW
 }ITEM;
 
+bool useItem(ITEM items[], BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown);

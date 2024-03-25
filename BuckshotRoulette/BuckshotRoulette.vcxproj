@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dealerAI.c" />
     <ClCompile Include="Main.c" />
   </ItemGroup>
   <ItemGroup>

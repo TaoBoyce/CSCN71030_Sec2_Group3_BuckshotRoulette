@@ -6,6 +6,6 @@
 #include <stdbool.h>
 
 //returns true if skipping opponent's turn
-bool playerTurn(int lives[], BulletsLink* bullets, item items[], bool* oppHandcuffed, difficulty difficulty);
+bool dealerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandcuffed, DIFFICULTY difficulty);
 
-void displayDealerInfo(int dLives, item dItems[]);
+void displayDealerInfo(int dLives, ITEM dItems[]);
