@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="itemsHandler.c" />
     <ClCompile Include="Main.c" />
+    <ClCompile Include="saveLoad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bulletsHandler.h" />
@@ -136,6 +138,7 @@
     <ClInclude Include="itemsHandler.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="playerTurn.h" />
+    <ClInclude Include="saveload.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
