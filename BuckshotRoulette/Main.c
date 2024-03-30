@@ -1,8 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include"bulletsHandler.h"
 
 int main(void) {
-	fprintf(stdout, "Hello World!");
+
 
 	return 0;
 }
