@@ -8,8 +8,21 @@ typedef enum bullet {
 typedef struct bulletsNode {
 	BULLET bullet;
 	struct bulletsNode* next;
-}BulletsNode, *BulletsLink;
+}BulletsNode, * BulletLink;
 
-BULLET popBullet(BulletsLink* link);
+void loadRandomBullets(BulletLink* head, int numBullets);
 
-BULLET peekBullet(BulletsLink link);
+void clearBullets(BulletLink* head);
+
+void addBullet(BulletLink* head, bullet type);
+
+void printBulletsInOrder(BulletLink head);
+
+bullet peekBullet(BulletLink head);
+
+bullet popBullet(BulletLink* head);
+
+bullet fireBullet(BulletLink* head);
+
+void printBulletCounts(BulletLink head);
+
