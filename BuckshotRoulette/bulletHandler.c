@@ -78,3 +78,37 @@ void printBulletCounts(BulletLink head) {
 	printf("Live bullets count: %d\n", liveCount);
 	printf("Blank bullets count: %d\n", blankCount);
 }
+
+
+
+int bulletCount(BulletLink* head) {
+	int count = 0;
+	BulletsNode* current = head;
+	while (current != NULL) {
+		count++;
+		current = current->next;
+	}
+	return count;
+}
+
+int liveBullets(BulletLink* head) {
+	int count = 0;
+	BulletsNode* current = head;
+	while (current != NULL) {
+		if (current->bullet == LIVE)
+			count++;
+		current = current->next;
+	}
+	return count;
+}
+
+int blankBullets(BulletLink* head) {
+	int count = 0;
+	BulletsNode* current = head;
+	while (current != NULL) {
+		if (current->bullet == BLANK)
+			count++;
+		current = current->next;
+	}
+	return count;
+}

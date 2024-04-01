@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define _CRT_SECURE_NO_WARNINGS
 
 #define MAX_INPUT_LENGTH 100
 
@@ -30,7 +31,7 @@ char* getTextInput(const char* prompt) {
 int getIntInput(const char* prompt) {
 	char* inputStr = getTextInput(prompt);
 	int num;
-	sscanf(inputStr, "%d", &num);
+	scanf_s(inputStr, "%d", &num);
 	free(inputStr);
 	return num;
 }
