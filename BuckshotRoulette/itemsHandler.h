@@ -12,6 +12,6 @@ typedef enum item {
 	HAND_SAW
 }ITEM;
 
-bool useItem(ITEM items[], BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown);
+bool useItem(ITEM *item, BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown);
 
 int findItem(ITEM item, ITEM items[]);

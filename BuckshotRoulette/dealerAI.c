@@ -2,8 +2,6 @@
 #include "gunHandler.h"
 #include "Main.h"
 #include <stdlib.h>
-#define MIN_RAND 1
-#define MAX_RAND 100
 
 bool dealerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandcuffed, DIFFICULTY difficulty)
 {
