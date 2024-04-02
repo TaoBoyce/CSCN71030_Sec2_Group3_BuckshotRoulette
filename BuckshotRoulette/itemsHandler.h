@@ -1,6 +1,7 @@
 #pragma once
 #include "stdbool.h"
 #include "bulletsHandler.h"
+#define ITEMS_CAP 8
 
 typedef enum item {
 	EMPTY = 0,
@@ -12,3 +13,5 @@ typedef enum item {
 }ITEM;
 
 bool useItem(ITEM items[], BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown);
+
+int findItem(ITEM item, ITEM items[]);
