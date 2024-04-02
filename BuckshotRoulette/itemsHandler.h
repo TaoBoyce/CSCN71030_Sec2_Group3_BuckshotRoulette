@@ -1,6 +1,7 @@
 #pragma once
 #include "stdbool.h"
 #include "bulletsHandler.h"
+#define ITEMS_CAP 8
 
 typedef enum item {
 	EMPTY = 0,
