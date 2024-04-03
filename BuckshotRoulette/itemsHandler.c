@@ -25,7 +25,7 @@ bool useItem(ITEM *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* lives,
 	}
 	if (item == MAGNIFYING_GLASS) {
 		*pItem = EMPTY;//change item to empty
-		BULLET b = peekBullet(bullets);
+		BULLET b = peekBullet(*bullets);
 		fprintf(stdout, "Used item: MAGNIFYING GLASS.\n");
 		fprintf(stdout, "Peeked at the next bullet.\n");
 		if (b == LIVE) {

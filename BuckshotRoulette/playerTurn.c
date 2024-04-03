@@ -46,7 +46,7 @@ bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 			}
 			j++;
 			if (j == choice) {
-				useItem(pItem, bullets, oppHandcuffed, lives[PLAYER], &doubleDamage, &bulletKnown);
+				useItem(pItem, bullets, oppHandcuffed, &(lives[PLAYER]), &doubleDamage, &bulletKnown);
 				if (bulletCount(bullets) == 0) {//if the player decides to rack all the bullets
 					return false;
 				}
@@ -60,9 +60,9 @@ bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 	fprintf(stdout, "1: Shoot the Dealer.\n");
 	fprintf(stdout, "2: Shoot yourself. (Shooting yourself with a blank skips the opponent's turn.)\n");
 	int target;
-	while (target != 1 | target != 2) {
+	while (target != 1 || target != 2) {
 		target = getIntInput("Input a number: ");
-		if (target != 1 | target != 2) {
+		if (target != 1 || target != 2) {
 			fprintf(stdout, "Invalid input, try again.\n");
 		}
 	}
