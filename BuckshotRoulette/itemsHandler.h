@@ -1,5 +1,5 @@
 #pragma once
-#include "stdbool.h"
+#include <stdbool.h>
 #include "bulletsHandler.h"
 #define ITEMS_CAP 8
 
@@ -15,3 +15,5 @@ typedef enum item {
 bool useItem(ITEM *item, BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown);
 
 int findItem(ITEM item, ITEM* items, int numItems);
+
+char* item_text(ITEM item);
