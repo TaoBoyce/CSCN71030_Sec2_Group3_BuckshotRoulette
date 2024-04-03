@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="itemsHandler.c" />
     <ClCompile Include="Main.c" />
+    <ClCompile Include="playerTurn.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bulletsHandler.h" />
