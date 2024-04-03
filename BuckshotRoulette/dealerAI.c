@@ -13,6 +13,7 @@ bool dealerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 	HANDCUFFS,
 	HAND_SAW
 	*/
+	fprintf(stdout, "-===- DEALER TURN -===-\n");
 	displayDealerInfo(lives[DEALER], items[DEALER]);
 	bool doubleDamage = false;
 	bool bulletKnown = false;
@@ -220,9 +221,8 @@ bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* dou
 }
 
 void displayDealerInfo(int dLives, ITEM items[]) {
-	fprintf(stdout, "-===- DEALER TURN -===-\n");
-	fprintf(stdout, "Lives: %d\n", dLives);
-	fprintf(stdout, "Items:\n");
+	fprintf(stdout, "Dealer Lives: %d\n", dLives);
+	fprintf(stdout, "Dealer Items:\n");
 	for (int i = 0; i < ITEMS_CAP; i++) {
 		fprintf(stdout, "%s\n", item_text(items[i]));
 	}
