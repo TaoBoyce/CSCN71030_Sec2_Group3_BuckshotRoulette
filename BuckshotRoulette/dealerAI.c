@@ -17,45 +17,50 @@ bool dealerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 	displayDealerInfo(lives[DEALER], items[DEALER]);
 	bool doubleDamage = false;
 	bool bulletKnown = false;
-	if (bulletCount() == 1) {//need interface
+
+	/*
+	all difficulties:
+		always use cigarettes if life is lower than max
+		always use handcuffs if not handcuffed
+	*/
+	if (bulletCount(bullets) == 1) {//need interface
 		bulletKnown = true;
 	}
+	while (lives[DEALER] < MAX_LIVES && findItem(CIGARETTE_PACK, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+		int index = findItem(CIGARETTE_PACK, items[DEALER], ITEMS_CAP);
+		useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+	}
+	if (!(*oppHandcuffed) && findItem(HANDCUFFS, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+		int index = findItem(HANDCUFFS, items[DEALER], ITEMS_CAP);
+		useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+	}
+
 	if (difficulty == DIF_EASY) {
 		/*
 		easy item use:
-		always use cigarettes if life is lower than max
-		always use handcuffs if not handcuffed
 		always use beer unless there's only one bullet left
 		use magnifying glass if not known
 		if bullet is known and is LIVE, use handsaw
 		*/
-		while (lives[DEALER] < MAX_LIVES && findItem(CIGARETTE_PACK, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(CIGARETTE_PACK, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
-		}
-		if (!(*oppHandcuffed) && findItem(HANDCUFFS, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(HANDCUFFS, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
-		}
-		while (bulletCount() > 1 && findItem(BEER, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(BEER, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+		while (bulletCount(bullets) > 1 && findItem(BEER, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+			int index = findItem(BEER, items[DEALER], ITEMS_CAP);
+			useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
 
-			if (bulletCount() == 1) {
+			if (bulletCount(bullets) == 1) {
 				bulletKnown = true;
 			}
 		}
-		if (!bulletKnown && findItem(MAGNIFYING_GLASS, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(MAGNIFYING_GLASS, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+		if (!bulletKnown && findItem(MAGNIFYING_GLASS, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+			int index = findItem(MAGNIFYING_GLASS, items[DEALER], ITEMS_CAP);
+			useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
 		}
-		if (bulletKnown && !doubleDamage && findItem(HAND_SAW, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(HAND_SAW, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+		if (bulletKnown && !doubleDamage && findItem(HAND_SAW, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+			int index = findItem(HAND_SAW, items[DEALER], ITEMS_CAP);
+			useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
 		}
 
 		//easy target shoots 50/50 if it's unknown
-		bool shootSelf = determineTarget(items, bullets, oppHandcuffed, lives, doubleDamage, bulletKnown, difficulty);
+		bool shootSelf = determineTarget(items, bullets, lives, &doubleDamage, bulletKnown, difficulty);
 		return shootGun(lives, bullets, shootSelf, doubleDamage);
 	}
 	if (difficulty == DIF_MEDIUM) {
@@ -63,33 +68,25 @@ bool dealerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 		same as easy item use except:
 		if bullet is unknown, use beer
 		*/
-		while (lives[DEALER] < MAX_LIVES && findItem(CIGARETTE_PACK, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(CIGARETTE_PACK, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+		if (!bulletKnown && findItem(MAGNIFYING_GLASS, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+			int index = findItem(MAGNIFYING_GLASS, items[DEALER], ITEMS_CAP);
+			useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
 		}
-		if (!(*oppHandcuffed) && findItem(HANDCUFFS, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(HANDCUFFS, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
-		}
-		if (!bulletKnown && findItem(MAGNIFYING_GLASS, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(MAGNIFYING_GLASS, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
-		}
-		while(!bulletKnown && findItem(BEER, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(BEER, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+		while(!bulletKnown && findItem(BEER, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+			int index = findItem(BEER, items[DEALER], ITEMS_CAP);
+			useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
 
-			if (bulletCount() == 1) {
+			if (bulletCount(bullets) == 1) {
 				bulletKnown = true;
 			}
 		}
-		if (bulletKnown && !doubleDamage && findItem(HAND_SAW, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(HAND_SAW, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+		if (bulletKnown && !doubleDamage && findItem(HAND_SAW, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+			int index = findItem(HAND_SAW, items[DEALER], ITEMS_CAP);
+			useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
 		}
 
 		//medium target shoots based on the chances of whichever is more likely
-		bool shootSelf = determineTarget(items, bullets, oppHandcuffed, lives, doubleDamage, bulletKnown, difficulty);
+		bool shootSelf = determineTarget(items, bullets, lives, &doubleDamage, bulletKnown, difficulty);
 		return shootGun(lives, bullets, shootSelf, doubleDamage);
 	}
 	if (difficulty == DIF_HARD) {
@@ -102,38 +99,30 @@ bool dealerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 			bulletKnown = true;
 		}
 
-		while (lives[DEALER] < MAX_LIVES && findItem(CIGARETTE_PACK, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(CIGARETTE_PACK, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+		if (!bulletKnown && findItem(MAGNIFYING_GLASS, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+			int index = findItem(MAGNIFYING_GLASS, items[DEALER], ITEMS_CAP);
+			useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
 		}
-		if (!(*oppHandcuffed) && findItem(HANDCUFFS, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(HANDCUFFS, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
-		}
-		if (!bulletKnown && findItem(MAGNIFYING_GLASS, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(MAGNIFYING_GLASS, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
-		}
-		while (!bulletKnown && findItem(BEER, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(BEER, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+		while (!bulletKnown && findItem(BEER, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+			int index = findItem(BEER, items[DEALER], ITEMS_CAP);
+			useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
 
-			if (bulletCount() == 1) {
+			if (bulletCount(bullets) == 1) {
 				bulletKnown = true;
 			}
 			else if (liveBullets(bullets) == 0 || blankBullets(bullets) == 0) {
 				bulletKnown = true;
 			}
 		}
-		if (bulletKnown && !doubleDamage && findItem(HAND_SAW, items[DEALER]) >= 0, ITEMS_CAP) {
-			int index = findItem(HAND_SAW, items, ITEMS_CAP);
-			useItem(items[DEALER][index], bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
+		if (bulletKnown && !doubleDamage && findItem(HAND_SAW, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {
+			int index = findItem(HAND_SAW, items[DEALER], ITEMS_CAP);
+			useItem(&(items[DEALER][index]), bullets, oppHandcuffed, lives, &doubleDamage, &bulletKnown);
 		}
 
 
 		//hard target shoots based on whatever reduces the net self damage possibility the most
 		//looks at not only dealer things, but also player hp, handcuffed, player items
-		bool shootSelf = determineTarget(items, bullets, oppHandcuffed, lives, &doubleDamage, bulletKnown, difficulty);
+		bool shootSelf = determineTarget(items, bullets, lives, &doubleDamage, bulletKnown, difficulty);
 		return shootGun(lives, bullets, shootSelf, doubleDamage);
 	}
 	return false;
@@ -141,7 +130,7 @@ bool dealerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 
 bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* doubleDamage, bool bulletKnown, DIFFICULTY difficulty) {
 	if (bulletKnown) {//if bullet is known, always shoot correct target
-		BULLET b = peekBullet(bullets);
+		BULLET b = peekBullet(*bullets);
 		if (b == LIVE) {
 			return false;
 		}
@@ -178,7 +167,7 @@ bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* dou
 
 		if (lives[DEALER] == 1) {//don't shoot self if lives are at 1
 			if (findItem(HAND_SAW, items[DEALER]) >= 0, ITEMS_CAP) {//use saw if you have it
-				int index = findItem(HAND_SAW, items, ITEMS_CAP);
+				int index = findItem(HAND_SAW, items[DEALER], ITEMS_CAP);
 				items[DEALER][index] = EMPTY;
 				*doubleDamage = true;
 				fprintf(stdout, "Used item: HAND SAW.\n");
@@ -190,8 +179,8 @@ bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* dou
 
 		//dealer lives are at least 2 at this point
 		//if you have a handsaw and there's a chance to kill, just attempt to shoot the player with the handsaw
-		if (findItem(HAND_SAW, items[DEALER]) >= 0 && lives[PLAYER] <= 2 && bulletCount(bullets) <= 3 && live >= 1, ITEMS_CAP) {
-			int index = findItem(HAND_SAW, items, ITEMS_CAP);
+		if (findItem(HAND_SAW, items[DEALER], ITEMS_CAP) >= 0 && lives[PLAYER] <= 2 && bulletCount(bullets) <= 3 && live >= 1, ITEMS_CAP) {
+			int index = findItem(HAND_SAW, items[DEALER], ITEMS_CAP);
 			items[DEALER][index] = EMPTY;
 			*doubleDamage = true;
 			fprintf(stdout, "Used item: HAND SAW.\n");
@@ -202,7 +191,7 @@ bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* dou
 
 		//if dealer lives are at 2 and player has handsaw and there's a chance to die if player goes,
 		//shoot self
-		if (findItem(HAND_SAW, items[PLAYER]) >= 0 && lives[DEALER] == 2 && bulletCount(bullets) <= 3 && live >= 1, ITEMS_CAP) {
+		if (findItem(HAND_SAW, items[PLAYER], ITEMS_CAP) >= 0 && lives[DEALER] == 2 && bulletCount(bullets) <= 3 && live >= 1, ITEMS_CAP) {
 			return true;
 		}
 
