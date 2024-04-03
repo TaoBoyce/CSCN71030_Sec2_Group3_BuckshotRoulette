@@ -166,7 +166,7 @@ bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* dou
 		bool shootSelf;
 
 		if (lives[DEALER] == 1) {//don't shoot self if lives are at 1
-			if (findItem(HAND_SAW, items[DEALER]) >= 0, ITEMS_CAP) {//use saw if you have it
+			if (findItem(HAND_SAW, items[DEALER], ITEMS_CAP) >= 0, ITEMS_CAP) {//use saw if you have it
 				int index = findItem(HAND_SAW, items[DEALER], ITEMS_CAP);
 				items[DEALER][index] = EMPTY;
 				*doubleDamage = true;
