@@ -1,6 +1,7 @@
 #include "dealerAI.h"
 #include "gunHandler.h"
 #include "Main.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 bool dealerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandcuffed, DIFFICULTY difficulty)
@@ -203,10 +204,22 @@ bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* dou
 		if (blank / live == 1) {
 			shootSelf = rand() % 2;//random if equal odds
 		}
+		else if (live == 1 && blank == 2) {
+			shootSelf = false;
+		}
 		else {
 			shootSelf = blank / live > 1;//choose the one with bigger odds
 		}
 
 		return shootSelf;
+	}
+}
+
+void displayDealerInfo(int dLives, ITEM items[]) {
+	fprintf(stdout, "-===- DEALER TURN -===-\n");
+	fprintf(stdout, "Lives: %d\n", dLives);
+	fprintf(stdout, "Items:\n");
+	for (int i = 0; i < ITEMS_CAP; i++) {
+		fprintf(stdout, "%s\n", item_text(items[i]));
 	}
 }
