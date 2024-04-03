@@ -47,6 +47,9 @@ bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 			j++;
 			if (j == choice) {
 				useItem(pItem, bullets, oppHandcuffed, lives[PLAYER], &doubleDamage, &bulletKnown);
+				if (bulletCount(bullets) == 0) {//if the player decides to rack all the bullets
+					return false;
+				}
 				break;
 			}
 		}
