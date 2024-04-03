@@ -14,4 +14,4 @@ typedef enum item {
 
 bool useItem(ITEM *item, BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown);
 
-int findItem(ITEM item, ITEM* items, size_t numItems);
+int findItem(ITEM item, ITEM* items, int numItems);

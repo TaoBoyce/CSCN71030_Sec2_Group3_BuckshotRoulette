@@ -26,11 +26,11 @@ BULLET fireBullet(BulletsLink* head);
 
 void printBulletCounts(BulletsLink head);
 
-int bulletCount(BulletLink* head);
+int bulletCount(BulletsLink* head);
 
-int blankBullets(BulletLink* head);
+int blankBullets(BulletsLink* head);
 
-int liveBullets(BulletLink* head);
+int liveBullets(BulletsLink* head);
 
 
 

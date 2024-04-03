@@ -207,6 +207,7 @@ bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* dou
 
 		return shootSelf;
 	}
+	return false;
 }
 
 void displayDealerInfo(int dLives, ITEM items[]) {
