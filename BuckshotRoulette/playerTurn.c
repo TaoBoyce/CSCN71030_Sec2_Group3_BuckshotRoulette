@@ -17,7 +17,7 @@ bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 	//show usable items
 	displayPlayerChoices(items[PLAYER]);
 	//select choice using number from player
-	int choice;
+	int choice = 0;
 	bool doubleDamage = false;
 	bool bulletKnown = false;
 	while (choice != 1) {
@@ -59,10 +59,10 @@ bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 	fprintf(stdout, "Select an option: \n");
 	fprintf(stdout, "1: Shoot the Dealer.\n");
 	fprintf(stdout, "2: Shoot yourself. (Shooting yourself with a blank skips the opponent's turn.)\n");
-	int target;
-	while (target != 1 || target != 2) {
+	int target = 0;
+	while (target != 1 && target != 2) {
 		target = getIntInput("Input a number: ");
-		if (target != 1 || target != 2) {
+		if (target != 1 && target != 2) {
 			fprintf(stdout, "Invalid input, try again.\n");
 		}
 	}

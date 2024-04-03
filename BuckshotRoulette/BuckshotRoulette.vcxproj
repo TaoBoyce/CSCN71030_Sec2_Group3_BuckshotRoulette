@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bulletsHandler.h" />
+    <ClInclude Include="dealerAI.h" />
     <ClInclude Include="gunHandler.h" />
     <ClInclude Include="itemsHandler.h" />
     <ClInclude Include="Main.h" />
