@@ -9,3 +9,5 @@
 bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandcuffed, char* name);
 
 void displayPlayerInfo(int pLives, ITEM pItems[]);
+
+void displayPlayerChoices(ITEM pItems[]);
