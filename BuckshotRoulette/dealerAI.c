@@ -180,6 +180,8 @@ bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* dou
 				int index = findItem(HAND_SAW, items);
 				items[DEALER][index] = EMPTY;
 				*doubleDamage = true;
+				fprintf(stdout, "Used item: HAND SAW.\n");
+				fprintf(stdout, "The next LIVE bullet shot THIS TURN will deal double damage.\n");
 			}
 
 			return false;
@@ -191,6 +193,8 @@ bool determineTarget(ITEM* items[], BulletsLink* bullets, int lives[], bool* dou
 			int index = findItem(HAND_SAW, items);
 			items[DEALER][index] = EMPTY;
 			*doubleDamage = true;
+			fprintf(stdout, "Used item: HAND SAW.\n");
+			fprintf(stdout, "The next LIVE bullet shot THIS TURN will deal double damage.\n");
 
 			return false;
 		}
