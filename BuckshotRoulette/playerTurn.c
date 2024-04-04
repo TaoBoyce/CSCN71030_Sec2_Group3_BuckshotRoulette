@@ -38,6 +38,7 @@ bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 			//load game
 			continue;
 		}
+		//done this way so it matches up with the display
 		int j = 3;
 		for (int i = 0; i < ITEMS_CAP; i++) {
 			ITEM* pItem = &(items[PLAYER][i]);
@@ -68,10 +69,10 @@ bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 	}
 
 	if (target == 1) {//shoot dealer
-		return shootGun(lives, bullets, false, doubleDamage);
+		return shootGun(lives[DEALER], bullets, false, doubleDamage);
 	}
 	if (target == 2) {//shoot self
-		return shootGun(lives, bullets, true, doubleDamage);
+		return shootGun(lives[PLAYER], bullets, true, doubleDamage);
 	}
 	return false;
 }
