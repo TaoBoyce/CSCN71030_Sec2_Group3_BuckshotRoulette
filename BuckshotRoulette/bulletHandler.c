@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #include<time.h>
 
-void loadRandomBullets(BulletLink* head, int numBullets) {
+void loadRandomBullets(BulletsLink* head, int numBullets) {
 	srand(time(NULL));
 	for (int i = 0; i < numBullets; i++) {
 		bullet type = rand() % 2 == 0 ? LIVE : BLANK;
@@ -11,7 +11,7 @@ void loadRandomBullets(BulletLink* head, int numBullets) {
 	}
 }
 
-void clearBullets(BulletLink* head) {
+void clearBullets(BulletsLink* head) {
 	while (*head != NULL) {
 		BulletsNode* temp = *head;
 		*head = (*head)->next;
@@ -19,14 +19,14 @@ void clearBullets(BulletLink* head) {
 	}
 }
 
-void addBullet(BulletLink* head, bullet type) {
+void addBullet(BulletsLink* head, bullet type) {
 	BulletsNode* newNode = (BulletsNode*)malloc(sizeof(BulletsNode));
 	newNode->bullet = type;
 	newNode->next = *head;
 	*head = newNode;
 }
 //This is a test function will not be included in the main game unless needed
-void printBulletsInOrder(BulletLink head) {
+void printBulletsInOrder(BulletsLink head) {
 	printf("Bullets in order of firing:\n");
 	BulletsNode* current = head;
 	while (current != NULL) {
@@ -35,13 +35,13 @@ void printBulletsInOrder(BulletLink head) {
 	}
 }
 
-bullet peekBullet(BulletLink head) {
+bullet peekBullet(BulletsLink head) {
 	if (head == NULL)
 		return BLANK;
 	return head->bullet;
 }
 
-bullet popBullet(BulletLink* head) {
+bullet popBullet(BulletsLink* head) {
 	if (*head == NULL)
 		return BLANK;
 
@@ -53,17 +53,7 @@ bullet popBullet(BulletLink* head) {
 	return type;
 }
 
-bullet fireBullet(BulletLink* head) {
-	if (*head == NULL)
-		return BLANK;
-	BulletsNode* temp = *head;
-	bullet type = temp->bullet;
-	*head = (*head)->next;
-	free(temp);
-	return type;
-}
-
-void printBulletCounts(BulletLink head) {
+void printBulletCounts(BulletsLink head) {
 	int liveCount = 0, blankCount = 0;
 	BulletsNode* current = head;
 
@@ -79,9 +69,7 @@ void printBulletCounts(BulletLink head) {
 	printf("Blank bullets count: %d\n", blankCount);
 }
 
-
-
-int bulletCount(BulletLink* head) {
+int bulletCount(BulletsLink* head) {
 	int count = 0;
 	BulletsNode* current = head;
 	while (current != NULL) {
@@ -91,7 +79,7 @@ int bulletCount(BulletLink* head) {
 	return count;
 }
 
-int liveBullets(BulletLink* head) {
+int liveBullets(BulletsLink* head) {
 	int count = 0;
 	BulletsNode* current = head;
 	while (current != NULL) {
@@ -102,7 +90,7 @@ int liveBullets(BulletLink* head) {
 	return count;
 }
 
-int blankBullets(BulletLink* head) {
+int blankBullets(BulletsLink* head) {
 	int count = 0;
 	BulletsNode* current = head;
 	while (current != NULL) {

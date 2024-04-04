@@ -8,29 +8,29 @@ typedef enum {
 typedef struct bulletsNode {
 	bullet bullet;
 	struct bulletsNode* next;
-}BulletsNode, * BulletLink;
+}BulletsNode, * BulletsLink;
 
-void loadRandomBullets(BulletLink* head, int numBullets);
+void loadRandomBullets(BulletsLink* head, int numBullets);
 
-void clearBullets(BulletLink* head);
+void clearBullets(BulletsLink* head);
 
-void addBullet(BulletLink* head, bullet type);
+void addBullet(BulletsLink* head, bullet type);
 
-void printBulletsInOrder(BulletLink head);
+void printBulletsInOrder(BulletsLink head);
 
-bullet peekBullet(BulletLink head);
+bullet peekBullet(BulletsLink head);
 
-bullet popBullet(BulletLink* head);
+bullet popBullet(BulletsLink* head);
 
-bullet fireBullet(BulletLink* head);
+bullet fireBullet(BulletsLink* head);
 
-void printBulletCounts(BulletLink head);
+void printBulletCounts(BulletsLink head);
 
-int bulletCount(BulletLink* head);
+int bulletCount(BulletsLink* head);
 
-int blankBullets(BulletLink* head);
+int blankBullets(BulletsLink* head);
 
-int liveBullets(BulletLink* head);
+int liveBullets(BulletsLink* head);
 
 
 

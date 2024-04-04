@@ -29,10 +29,12 @@ char* getTextInput(const char* prompt) {
 
 // Function to get integer input from the user
 int getIntInput(const char* prompt) {
-	char* inputStr = getTextInput(prompt);
+	char* inputStr;
 	int num;
-	scanf_s(inputStr, "%d", &num);
-	free(inputStr);
+	do {
+		inputStr = getTextInput(prompt); // Get input string
+	} while (sscanf_s(inputStr, "%d", &num) != 1); // Repeat until a valid integer is read
+	free(inputStr); // Free the memory allocated for input string
 	return num;
 }
 
