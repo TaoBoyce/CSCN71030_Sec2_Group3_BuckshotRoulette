@@ -127,7 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bulletHandler.c" />
+    <ClCompile Include="bulletsHandler.c" />
+    <ClCompile Include="itemsHandler.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="textInput.c" />
   </ItemGroup>
