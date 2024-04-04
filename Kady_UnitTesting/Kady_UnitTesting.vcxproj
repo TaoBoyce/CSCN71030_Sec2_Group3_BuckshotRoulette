@@ -100,7 +100,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)BuckshotRoulette\x64\Debug\itemsHandler.obj;$(SolutionDir)BuckshotRoulette\x64\Debug\saveLoad.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)BuckshotRoulette\x64\Debug\itemsHandler.obj;$(SolutionDir)BuckshotRoulette\x64\Debug\saveLoad.obj;$(SolutionDir)BuckshotRoulette\x64\Debug\bulletsHandler.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

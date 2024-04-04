@@ -1,5 +1,8 @@
 #include "CppUnitTest.h"
 extern "C" {
+#define INFSAVE_NAME "testinfsave"
+#define SAVE_NAME "testsave"
+#include "saveload.h"
 #include "itemsHandler.h"
 }
 
@@ -71,6 +74,86 @@ namespace KadyUnitTesting
 			for (int i = 0; i < 4; i++) {
 				Assert::AreEqual((ITEM_T) EMPTY, items[i]);
 			}
+		}
+	};
+	TEST_CLASS(SaveLoadTests) {
+		TEST_METHOD(UpdateSave) {
+			BulletsLink head = reinterpret_cast<BulletsLink>(malloc(sizeof(BulletsNode)));
+			if (head == 0)
+				Assert::Fail();
+			head->bullet = BLANK;
+			head->next = reinterpret_cast<BulletsLink>(malloc(sizeof(BulletsNode)));
+			if (head->next == 0)
+				Assert::Fail();
+			head->next->bullet = LIVE;
+			head->next->next = nullptr;
+
+			GAME_SAVE *save = create_save();
+
+			int arr[2] = { 2, 1 };
+			ITEM_T arr2[2] = {BEER, MAGNIFYING_GLASS};
+			update_save(save, 2, 2, (int *)arr, (ITEM_T*) arr2, 2, head, true, true);
+
+			Assert::IsTrue(save->items[1] == (ITEM_T) MAGNIFYING_GLASS);
+			Assert::IsTrue(save->bullets[1] == LIVE);
+			Assert::IsTrue(save->lives[1] == 1);
+
+			free(head->next);
+			free(head);
+
+			destroy_save(save);
+		}
+		TEST_METHOD(UpdateSaveInf) {
+			BulletsLink head = reinterpret_cast<BulletsLink>(malloc(sizeof(BulletsNode)));
+			if (head == 0)
+				Assert::Fail();
+			head->bullet = BLANK;
+			head->next = reinterpret_cast<BulletsLink>(malloc(sizeof(BulletsNode)));
+			if (head->next == 0)
+				Assert::Fail();
+			head->next->bullet = LIVE;
+			head->next->next = nullptr;
+
+			INFINITE_SAVE *save = create_save_infinite();
+
+			int arr[2] = { 2, 1 };
+			ITEM_T arr2[2] = { BEER, MAGNIFYING_GLASS };
+			update_save_inf(save, 2, 2, (int *)arr, (ITEM_T*) arr2, 2, head, true, true, 5);
+
+			Assert::IsTrue(save->items[1] == (ITEM_T)MAGNIFYING_GLASS);
+			Assert::IsTrue(save->bullets[1] == LIVE);
+			Assert::IsTrue(save->lives[1] == 1);
+			Assert::IsTrue(save->total_wins == 5);
+
+			free(head->next);
+			free(head);
+
+			destroy_save_inf(save);
+		}
+		TEST_METHOD(SaveLoad) {
+			GAME_SAVE *save = create_save();
+			int lvs[2] = { 1, 1 };
+			ITEM_T items[2] = { BEER, HAND_SAW };
+			BulletsLink b = (BulletsLink) malloc(sizeof(BulletsLink));
+			if (b == 0)
+				Assert::Fail();
+			b->next = 0;
+			b->bullet = LIVE;
+
+			update_save(save, 1, 2, lvs, items, 2, b, true, false);
+
+			output_save(save);
+
+			destroy_save(save);
+			save = create_save();
+
+			input_save(save);
+
+			Assert::IsTrue(save->sawed == true);
+			Assert::IsTrue(save->items[0] == (ITEM_T) BEER);
+			Assert::IsTrue(save->bullets[0] == LIVE);
+
+			destroy_save(save);
 		}
 	};
 }
