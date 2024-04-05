@@ -24,6 +24,9 @@
     <ClCompile Include="playerTurn.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bulletsHandler.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gunHandler.h">

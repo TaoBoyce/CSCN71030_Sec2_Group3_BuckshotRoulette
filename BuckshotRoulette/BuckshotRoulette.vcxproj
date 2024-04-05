@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bulletsHandler.c" />
     <ClCompile Include="itemsHandler.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="playerTurn.c" />
@@ -138,6 +139,7 @@
     <ClInclude Include="itemsHandler.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="playerTurn.h" />
+    <ClInclude Include="saveload.h" />
     <ClInclude Include="textInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

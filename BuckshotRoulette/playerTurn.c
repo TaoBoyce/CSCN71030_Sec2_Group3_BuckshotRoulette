@@ -2,14 +2,21 @@
 #include "dealerAI.h"
 #include "textInput.h"
 #include "gunHandler.h"
+#include "saveload.h"
 #include <stdio.h>
 //need to add a way to leave the game, probably as an option
 
-bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandcuffed, char* name) {
-
+bool playerTurn(bool infiniteMode, int* stage, int* turn, int* totalWins, int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandcuffed, char* name) {
+	int choice = 0;
+	bool doubleDamage = false;
+	bool bulletKnown = false;
+startOfTurn:
 	fprintf(stdout, "-===- PLAYER TURN -===-\n");
 	if (*oppHandcuffed) {
 		fprintf(stdout, "Dealer is handcuffed.\n");
+	}
+	if (doubleDamage) {
+		fprintf(stdout, "The next LIVE shot will deal double damage.\n");
 	}
 	displayPlayerInfo(lives[PLAYER], items[PLAYER]);
 	displayDealerInfo(lives[DEALER], items[DEALER]);
@@ -17,9 +24,6 @@ bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 	//show usable items
 	displayPlayerChoices(items[PLAYER]);
 	//select choice using number from player
-	int choice = 0;
-	bool doubleDamage = false;
-	bool bulletKnown = false;
 	while (choice != 1) {
 		choice = getIntInput("Input a number: ");
 		//if it's an item continue looping unless there's no usable items left
@@ -32,10 +36,65 @@ bool playerTurn(int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandc
 		}
 		if (choice == 2) {
 			//save game
+			
+			if (infiniteMode) {
+				INFINITE_SAVE* save = create_save_infinite();
+				update_save_inf(save, stage, turn, lives, items, ITEMS_CAP, *bullets, bulletCount(bullets), *oppHandcuffed, totalWins);
+				output_save_inf(save);
+				destroy_save_inf(save);
+			}
+			else {
+				GAME_SAVE* save = create_save();
+				update_save(save, stage, turn, lives, items, ITEMS_CAP, *bullets, bulletCount(bullets), *oppHandcuffed);
+				output_save(save);
+				destroy_save(save);
+			}
+			fprintf(stdout, "Game Saved!\n");
 			continue;
 		}
 		if (choice == 3) {
 			//load game
+
+			if (infiniteMode) {
+				INFINITE_SAVE* save = create_save_infinite();
+				input_save(save);
+				*stage = save->stage;
+				*turn = save->turn;
+				lives[PLAYER] = save->lives[PLAYER];
+				lives[DEALER] = save->lives[DEALER];
+				for (int i = 0; i < ITEMS_CAP; i++) {
+					items[DEALER][i] = save->items[DEALER][i];
+					items[PLAYER][i] = save->items[PLAYER][i];
+				}
+				clearBullets(bullets);//clear out stack for new bullets
+				for (int i = save->bullets_n - 1; i >= 0; i--) {//iterate through array backwards
+					addBullet(bullets, save->bullets[i]);
+				}
+				*oppHandcuffed = save->dealer_cuffed;
+				*totalWins = save->total_wins;
+				destroy_save_inf(save);
+			}
+			else {
+				GAME_SAVE* save = create_save();
+				input_save(save);
+				*stage = save->stage;
+				*turn = save->turn;
+				lives[PLAYER] = save->lives[PLAYER];
+				lives[DEALER] = save->lives[DEALER];
+				for (int i = 0; i < ITEMS_CAP; i++) {
+					items[DEALER][i] = save->items[DEALER][i];
+					items[PLAYER][i] = save->items[PLAYER][i];
+				}
+				clearBullets(bullets);//clear out stack for new bullets
+				for (int i = save->bullets_n-1; i >= 0; i--) {//iterate through array backwards
+					addBullet(bullets, save->bullets[i]);
+				}
+				*oppHandcuffed = save->dealer_cuffed;
+				destroy_save(save);
+			}
+			fprintf(stdout, "Game Loaded!\n");
+			//show start of turn again 
+			goto startOfTurn;
 			continue;
 		}
 		//done this way so it matches up with the display
