@@ -1,5 +1,4 @@
 #pragma once
-#include <stdbool.h>
 
 typedef enum bullet{
 	BLANK = 0,
