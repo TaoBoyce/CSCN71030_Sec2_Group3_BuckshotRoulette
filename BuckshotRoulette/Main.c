@@ -4,7 +4,7 @@
 #include"textInput.h"
 #include "playerTurn.h"
 
-int main(void) {
+int main(int argc, char **argv) {
 	//get console input
 	//convert console input to infinite mode and difficulty
 	//ask for name
