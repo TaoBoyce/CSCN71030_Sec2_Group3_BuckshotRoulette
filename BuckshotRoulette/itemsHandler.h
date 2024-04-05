@@ -4,14 +4,14 @@
 #include <stddef.h>
 #define ITEMS_CAP 8
 
-enum item {
+typedef enum item {
 	EMPTY = 0,
 	BEER,
 	MAGNIFYING_GLASS,
 	CIGARETTE_PACK,
 	HANDCUFFS,
 	HAND_SAW
-};
+}ITEM;
 
 typedef unsigned char ITEM_T;
 
