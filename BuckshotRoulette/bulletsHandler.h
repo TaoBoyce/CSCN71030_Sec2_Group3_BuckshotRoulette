@@ -18,11 +18,9 @@ void addBullet(BulletsLink* head, BULLET type);
 
 void printBulletsInOrder(BulletsLink head);
 
-BULLET peekBullet(BulletsLink head);
+bullet peekBullet(BulletsLink head);
 
-BULLET popBullet(BulletsLink* head);
-
-BULLET fireBullet(BulletsLink* head);
+bullet popBullet(BulletsLink* head);
 
 void printBulletCounts(BulletsLink head);
 
@@ -31,6 +29,5 @@ int bulletCount(BulletsLink* head);
 int blankBullets(BulletsLink* head);
 
 int liveBullets(BulletsLink* head);
-
 
 

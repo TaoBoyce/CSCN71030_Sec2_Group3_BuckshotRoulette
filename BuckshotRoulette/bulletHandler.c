@@ -57,16 +57,6 @@ BULLET popBullet(BulletsLink* head) {
 	return type;
 }
 
-BULLET fireBullet(BulletsLink* head) {
-	if (*head == NULL)
-		return BLANK;
-	BulletsNode* temp = *head;
-	BULLET type = temp->bullet;
-	*head = (*head)->next;
-	free(temp);
-	return type;
-}
-
 void printBulletCounts(BulletsLink head) {
 	int liveCount = 0, blankCount = 0;
 	BulletsNode* current = head;
