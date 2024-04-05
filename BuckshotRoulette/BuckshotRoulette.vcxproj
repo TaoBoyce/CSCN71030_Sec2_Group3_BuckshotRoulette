@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="playerTurn.c" />
     <ClCompile Include="dealerAI.c" />
     <ClCompile Include="bulletsHandler.c" />
     <ClCompile Include="gunHandler.c" />
@@ -142,8 +143,8 @@
     <ClInclude Include="itemsHandler.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="playerTurn.h" />
-    <ClInclude Include="textInput.h" />
     <ClInclude Include="saveload.h" />
+    <ClInclude Include="textInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
