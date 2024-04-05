@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BuckshotRoulette", "BuckshotRoulette\BuckshotRoulette.vcxproj", "{7ED31119-5195-4507-A3F5-4F8FBA593449}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Kady_UnitTesting", "Kady_UnitTesting\Kady_UnitTesting.vcxproj", "{478F9665-1BE0-433A-9666-21CAFB05967E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7ED31119-5195-4507-A3F5-4F8FBA593449} = {7ED31119-5195-4507-A3F5-4F8FBA593449}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
