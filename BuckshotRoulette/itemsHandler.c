@@ -20,7 +20,7 @@ void item_add(ITEM_T *arr, size_t n) {
 		if (arr[i] == EMPTY) {
 			// In case srand has not been used before
 			srand((unsigned int) time(0));
-			arr[i] = (rand() % 5);
+			arr[i] = (rand() % 5)+1;
 		}
 	}
 }
