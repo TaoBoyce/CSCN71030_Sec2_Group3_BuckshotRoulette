@@ -18,9 +18,9 @@ void addBullet(BulletsLink* head, BULLET type);
 
 void printBulletsInOrder(BulletsLink head);
 
-bullet peekBullet(BulletsLink head);
+BULLET peekBullet(BulletsLink head);
 
-bullet popBullet(BulletsLink* head);
+BULLET popBullet(BulletsLink* head);
 
 void printBulletCounts(BulletsLink head);
 
