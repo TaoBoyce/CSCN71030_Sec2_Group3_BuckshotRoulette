@@ -1,36 +1,36 @@
 #pragma once
 
-typedef enum {
+typedef enum bullet{
 	BLANK = 0,
 	LIVE = 1
-}bullet;
+}BULLET;
 
 typedef struct bulletsNode {
-	bullet bullet;
+	BULLET bullet;
 	struct bulletsNode* next;
-}BulletsNode, * BulletLink;
+}BulletsNode, * BulletsLink;
 
-void loadRandomBullets(BulletLink* head, int numBullets);
+void loadRandomBullets(BulletsLink* head, int numBullets);
 
-void clearBullets(BulletLink* head);
+void clearBullets(BulletsLink* head);
 
-void addBullet(BulletLink* head, bullet type);
+void addBullet(BulletsLink* head, BULLET type);
 
-void printBulletsInOrder(BulletLink head);
+void printBulletsInOrder(BulletsLink head);
 
-bullet peekBullet(BulletLink head);
+BULLET peekBullet(BulletsLink head);
 
-bullet popBullet(BulletLink* head);
+BULLET popBullet(BulletsLink* head);
 
-bullet fireBullet(BulletLink* head);
+BULLET fireBullet(BulletsLink* head);
 
-void printBulletCounts(BulletLink head);
+void printBulletCounts(BulletsLink head);
 
-int bulletCount(BulletLink* head);
+int bulletCount(BulletsLink* head);
 
-int blankBullets(BulletLink* head);
+int blankBullets(BulletsLink* head);
 
-int liveBullets(BulletLink* head);
+int liveBullets(BulletsLink* head);
 
 
 
