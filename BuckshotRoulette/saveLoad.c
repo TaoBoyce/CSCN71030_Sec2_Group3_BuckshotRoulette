@@ -197,7 +197,36 @@ bool input_save(GAME_SAVE *dest) {
 }
 
 bool input_save_inf(INFINITE_SAVE *dest) {
-	return false;
+	FILE *file = fopen(INFSAVE_NAME, "r");
+
+	fscanf(file, "Stage: %d\n", &(dest->stage));
+	fscanf(file, "Turn: %d\n", &(dest->turn));
+	fscanf(file, "Lives1: %d\n", &(dest->lives[0]));
+	fscanf(file, "Lives2: %d\n", &(dest->lives[1]));
+	fscanf(file, "ItemSize: %llu\n", &(dest->items_n));
+	ITEM_T *temp1 = realloc(dest->items, dest->items_n * sizeof(ITEM_T));
+	if (temp1 == 0)
+		return false;
+	dest->items = temp1;
+	for (size_t i = 0; i < dest->items_n; i++) {
+		fscanf(file, "%u\n", &(dest->items[i]));
+	}
+	fscanf(file, "BulletSize: %llu\n", &(dest->bullets_n));
+	BULLET *temp2 = realloc(dest->bullets, dest->bullets_n * sizeof(BULLET));
+	if (temp2 == 0)
+		return false;
+	dest->bullets = temp2;
+	for (size_t i = 0; i < dest->bullets_n; i++) {
+		fscanf(file, "%u\n", &(dest->bullets[i]));
+	}
+	int temp3 = -1;
+	fscanf(file, "Sawed: %d\n", &temp3);
+	dest->sawed = temp3 > 0;
+	fscanf(file, "Cuffed: %hhi\n", &temp3);
+	dest->dealer_cuffed = temp3 > 0;
+	fscanf(file, "Wins: %llu\n", &(dest->total_wins));
+
+	fclose(file);
 }
 
 void destroy_save(GAME_SAVE *save) {
