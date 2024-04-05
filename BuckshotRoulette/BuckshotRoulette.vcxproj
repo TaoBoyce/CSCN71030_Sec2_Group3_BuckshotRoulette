@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dealerAI.c" />
     <ClCompile Include="bulletsHandler.c" />
     <ClCompile Include="gunHandler.c" />
     <ClCompile Include="itemsHandler.c" />
