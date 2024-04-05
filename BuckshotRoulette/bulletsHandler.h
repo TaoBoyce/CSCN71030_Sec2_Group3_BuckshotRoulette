@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h>
 
 typedef enum bullet {
 	BLANK = 0,
@@ -13,3 +14,9 @@ typedef struct bulletsNode {
 BULLET popBullet(BulletsLink* link);
 
 BULLET peekBullet(BulletsLink link);
+
+// Stub
+int bulletCount(BulletsLink head);
+
+// Stub
+bool addBullet(BulletsLink head, BULLET type);
