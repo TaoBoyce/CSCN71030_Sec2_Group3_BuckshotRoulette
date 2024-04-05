@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h>
 
 typedef enum bullet{
 	BLANK = 0,
@@ -29,5 +30,3 @@ int bulletCount(BulletsLink* head);
 int blankBullets(BulletsLink* head);
 
 int liveBullets(BulletsLink* head);
-
-

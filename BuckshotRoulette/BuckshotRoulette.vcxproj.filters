@@ -18,10 +18,16 @@
     <ClCompile Include="Main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bulletHandler.c">
+    <ClCompile Include="textInput.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="textInput.c">
+    <ClCompile Include="itemsHandler.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="saveLoad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bulletsHandler.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="textInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="saveload.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
