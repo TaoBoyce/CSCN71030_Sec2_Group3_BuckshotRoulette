@@ -3,7 +3,7 @@
 #include"bulletsHandler.h"
 #include"textInput.h"
 
-int main(void) {
+int main(int argc, char **argv) {
 	//get console input
 	//convert console input to infinite mode and difficulty
 	//ask for name
