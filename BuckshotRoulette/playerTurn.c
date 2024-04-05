@@ -62,9 +62,13 @@ startOfTurn:
 				*turn = save->turn;
 				lives[PLAYER] = save->lives[PLAYER];
 				lives[DEALER] = save->lives[DEALER];
-				for (int i = 0; i < ITEMS_CAP; i++) {
-					items[DEALER][i] = save->items[DEALER][i];
-					items[PLAYER][i] = save->items[PLAYER][i];
+				for (int i = 0; i < ITEMS_CAP*2; i++) {
+					if (i < ITEMS_CAP) {//save treats the 2D array as a 1D array
+						items[PLAYER][i] = save->items[i];
+					}
+					else {
+						items[DEALER][i-ITEMS_CAP] = save->items[i];
+					}
 				}
 				clearBullets(bullets);//clear out stack for new bullets
 				for (int i = save->bullets_n - 1; i >= 0; i--) {//iterate through array backwards
@@ -81,9 +85,13 @@ startOfTurn:
 				*turn = save->turn;
 				lives[PLAYER] = save->lives[PLAYER];
 				lives[DEALER] = save->lives[DEALER];
-				for (int i = 0; i < ITEMS_CAP; i++) {
-					items[DEALER][i] = save->items[DEALER][i];
-					items[PLAYER][i] = save->items[PLAYER][i];
+				for (int i = 0; i < ITEMS_CAP * 2; i++) {
+					if (i < ITEMS_CAP) {//save treats the 2D array as a 1D array
+						items[PLAYER][i] = save->items[i];
+					}
+					else {
+						items[DEALER][i - ITEMS_CAP] = save->items[i];
+					}
 				}
 				clearBullets(bullets);//clear out stack for new bullets
 				for (int i = save->bullets_n-1; i >= 0; i--) {//iterate through array backwards
