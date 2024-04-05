@@ -101,7 +101,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(SolutionDir)BuckshotRoulette\x64\Debug\itemsHandler.obj;$(SolutionDir)BuckshotRoulette\x64\Debug\saveLoad.obj;$(SolutionDir)BuckshotRoulette\x64\Debug\bulletsHandler.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)BuckshotRoulette\x64\Debug\itemsHandler.obj;$(SolutionDir)BuckshotRoulette\x64\Debug\saveLoad.obj;$(SolutionDir)BuckshotRoulette\x64\Debug\bulletsHandler.obj;$(SolutionDir)BuckshotRoulette\x64\Debug\dealerAI.obj;$(SolutionDir)BuckshotRoulette\x64\Debug\gunHandler.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -158,6 +158,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dealerAI_UnitTests.cpp" />
     <ClCompile Include="Kady_UnitTesting.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
