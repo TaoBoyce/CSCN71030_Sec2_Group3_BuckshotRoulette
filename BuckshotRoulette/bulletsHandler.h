@@ -1,6 +1,7 @@
 #pragma once
+#include <stdbool.h>
 
-typedef enum bullet {
+typedef enum bullet{
 	BLANK = 0,
 	LIVE = 1
 }BULLET;
@@ -22,7 +23,10 @@ BULLET peekBullet(BulletsLink head);
 
 BULLET popBullet(BulletsLink* head);
 
-BULLET fireBullet(BulletsLink* head);
-
 void printBulletCounts(BulletsLink head);
 
+int bulletCount(BulletsLink* head);
+
+int blankBullets(BulletsLink* head);
+
+int liveBullets(BulletsLink* head);
