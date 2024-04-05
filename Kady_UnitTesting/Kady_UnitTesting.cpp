@@ -19,7 +19,8 @@ namespace KadyUnitTesting
 			for (int i = 0; i < 12; i++) {
 				ITEM_T items[5] = { 0 };
 				item_add(items, 5);
-				Assert::IsTrue(items[0] > EMPTY && items[0] <= HAND_SAW);
+				for (int i = 0; i < 5; i++)
+					Assert::IsTrue(items[i] > EMPTY && items[i] <= HAND_SAW);
 			}
 		}
 		TEST_METHOD(ItemAdd2)
