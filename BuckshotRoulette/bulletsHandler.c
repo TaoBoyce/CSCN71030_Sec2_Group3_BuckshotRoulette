@@ -5,7 +5,6 @@
 #include<time.h>
 
 void loadRandomBullets(BulletsLink* head, int numBullets) {
-	srand(time(NULL));
 	for (int i = 0; i < numBullets; i++) {
 		BULLET type = rand() % 2 == 0 ? LIVE : BLANK;
 		addBullet(head, type);
@@ -86,7 +85,7 @@ int bulletCount(BulletsLink head) {
 	return count;
 }
 
-int liveBullets(BulletsLink* head) {
+int liveBullets(BulletsLink head) {
 	int count = 0;
 	BulletsNode* current = head;
 	while (current != NULL) {
@@ -97,7 +96,7 @@ int liveBullets(BulletsLink* head) {
 	return count;
 }
 
-int blankBullets(BulletsLink* head) {
+int blankBullets(BulletsLink head) {
 	int count = 0;
 	BulletsNode* current = head;
 	while (current != NULL) {

@@ -16,9 +16,6 @@ void item_add(ITEM_T * arr, size_t n) {
 		fprintf(stderr, "Did not recieve a valid array in item_add!\n");
 		return;
 	}
-	// In case srand has not been used before
-	srand((unsigned int)time(0));
-
 	for (size_t i = 0; i < n; i++) {
 		if (arr[i] == EMPTY) {
 			
@@ -85,10 +82,12 @@ void item_clear(ITEM_T *arr, size_t n) {
 
 bool useItem(ITEM_T *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown) {
 	ITEM item = (ITEM)(*pItem);
+	fprintf(stdout, "\n");
 	if (item == BEER) {
 		if (bulletCount(*bullets) == 0) {
 			fprintf(stdout, "Tried to use item: BEER.\n");
 			fprintf(stdout, "No bullets are loaded, item was not used.\n");
+			fprintf(stdout, "\n");
 			return false;
 		}
 		*pItem = EMPTY;//change item to empty
@@ -101,6 +100,7 @@ bool useItem(ITEM_T *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* live
 		else {
 			fprintf(stdout, "The bullet was BLANK.\n");
 		}
+		fprintf(stdout, "\n");
 		return true;
 	}
 	if (item == MAGNIFYING_GLASS) {
@@ -115,6 +115,7 @@ bool useItem(ITEM_T *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* live
 		else {
 			fprintf(stdout, "The bullet was BLANK.\n");
 		}
+		fprintf(stdout, "\n");
 		return true;
 	}
 	if (item == CIGARETTE_PACK) {
@@ -123,10 +124,12 @@ bool useItem(ITEM_T *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* live
 			(*lives)++;
 			fprintf(stdout, "Used item: CIGARETTE PACK.\n");
 			fprintf(stdout, "Healed 1 health, to %d.\n", *lives);
+			fprintf(stdout, "\n");
 			return true;
 		}
 		fprintf(stdout, "Tried to use: CIGARRETE PACK.\n");
 		fprintf(stdout, "Health is already at max (%d), item was not used.\n", *lives);
+		fprintf(stdout, "\n");
 		return false;
 	}
 	if (item == HANDCUFFS) {
@@ -135,10 +138,12 @@ bool useItem(ITEM_T *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* live
 			*oppHandcuffed = true;
 			fprintf(stdout, "Used item: HANDCUFFS.\n");
 			fprintf(stdout, "Opponent's next turn will be skipped.\n");
+			fprintf(stdout, "\n");
 			return true;
 		}
 		fprintf(stdout, "Tried to use: HANDCUFFS.\n");
 		fprintf(stdout, "Opponent is already cuffed, item was not used.\n");
+		fprintf(stdout, "\n");
 		return false;
 	}
 	if (item == HAND_SAW) {
@@ -147,10 +152,12 @@ bool useItem(ITEM_T *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* live
 			*doubleDamage = true;
 			fprintf(stdout, "Used item: HAND SAW.\n");
 			fprintf(stdout, "The next LIVE bullet shot THIS TURN will deal double damage.\n");
+			fprintf(stdout, "\n");
 			return true;
 		}
 		fprintf(stdout, "Tried to use: HAND SAW.\n");
 		fprintf(stdout, "Double damage is already active, item was not used.\n");
+		fprintf(stdout, "\n");
 		return false;
 	}
 	return false;//no item match
