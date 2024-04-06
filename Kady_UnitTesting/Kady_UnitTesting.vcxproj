@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\gunHandlerTests\gunHandlerTests.cpp" />
+    <ClCompile Include="bulletHandlerTest.cpp" />
     <ClCompile Include="dealerAI_UnitTests.cpp" />
     <ClCompile Include="Kady_UnitTesting.cpp" />
   </ItemGroup>
