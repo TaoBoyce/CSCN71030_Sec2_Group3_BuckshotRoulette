@@ -1,8 +1,11 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include<stdlib.h>
+#include<time.h>
 #include"bulletsHandler.h"
 #include"textInput.h"
 #include "playerTurn.h"
+#include "dealerAI.h"
 
 int main(int argc, char **argv) {
 	//get console input
@@ -22,24 +25,100 @@ int main(int argc, char **argv) {
 	//ask for name
 	char* name = getTextInput("Input your name");
 	//start round
-	int stage = 1;
-	int round = 1;
+	int stage = 0;
+	int round = 0;
 	int totalWins = 0;
+	int lives[2] = { stage * 2, stage * 2 };
 	//load bullets and items
 	BulletsLink bullets = NULL;
-	loadRandomBullets(&bullets, round * 2);
 	ITEM_T items[2][ITEMS_CAP];
 	for (int i = 0; i < ITEMS_CAP; i++) {
 		items[PLAYER][i] = EMPTY;
 		items[DEALER][i] = EMPTY;
 	}
-	item_add(items, ITEMS_CAP);
+
+	start_of_stage:
+	//start of stage
+	stage++;
+	fprintf(stdout, "---=== START OF STAGE %d ===---\n", stage);
+	item_add(items[PLAYER], stage*2+2);
+	item_add(items[DEALER], stage*2+2);
+	lives[PLAYER] = stage * 2;
+	lives[DEALER] = stage * 2;
+	fprintf(stdout, "Lives set to %d.\n", lives[PLAYER]);
+
+	start_of_round:
+	//start of round
+	round++;
+	fprintf(stdout, "---=== START OF ROUND %d ===---\n", round);
+	do {
+		clearBullets(&bullets);
+		loadRandomBullets(&bullets, round * 2 + 2);
+	} while (liveBullets(bullets) <= round || blankBullets(bullets) <= round);
+	printBulletCounts(bullets);
+
 	//loop player's turn until they don't skip opponent/run out of bullets
-	//loop dealer's turn until they don't skip opponent/run out of bullets
-	//loop both of the above until one of their lives hits 0
-	//3 rounds in non-infinite
-	//infinite stages in infinite
-	
+	bool skipOpponent = false;
+	bool oppHandcuffed = false;
+	bool handcuffsTriggered = false;
+	while (lives[PLAYER] > 0 && lives[DEALER] > 0 && bulletCount(bullets) > 0) {
+		skipOpponent = false;
+		oppHandcuffed = false;
+		handcuffsTriggered = false;
+		do {
+			if (oppHandcuffed) {
+				handcuffsTriggered = true;
+			}
+			skipOpponent = playerTurn(infiniteMode, &stage, &round, &totalWins, lives, &bullets, items, &oppHandcuffed, name);
+		} while ((skipOpponent | (oppHandcuffed && !handcuffsTriggered)) && bulletCount(bullets) > 0);
+
+		if (bulletCount <= 0) {
+			break;
+		}
+		//loop dealer's turn until they don't skip opponent/run out of bullets
+		skipOpponent = false;
+		oppHandcuffed = false;
+		handcuffsTriggered = false;
+		do {
+			if (oppHandcuffed) {
+				handcuffsTriggered = true;
+			}
+			skipOpponent = dealerTurn(lives, &bullets, items, &oppHandcuffed, difficulty);
+		} while ((skipOpponent | (oppHandcuffed && !handcuffsTriggered)) && bulletCount(bullets) > 0);
+	}
+	//if lives have run out or bullets have run out
+	if (lives[PLAYER] <= 0) {//player loss
+		fprintf(stdout, "YOU LOSE!\n");
+		fprintf(stdout, "Name: %s\n", name);
+		if (infiniteMode) {
+			fprintf(stdout, "Total wins: %d\n", totalWins);
+		}
+		fprintf(stdout, "Reached stage %d, round %d\n", stage, round);
+	}
+	else if (lives[DEALER] <= 0) {//dealer loss
+		fprintf(stdout, "DEALER's LIFE has hit ZERO!\n");
+		totalWins++;
+		if (stage > 3 && !infiniteMode) {
+			//3 stages in non-infinite
+			fprintf(stdout, "YOU WIN!\n");
+		}
+		else if (stage > 3 && infiniteMode) {
+			//infinite stages in infinite (has to reset so it doesn't goof)
+			fprintf(stdout, "---=== STAGE RESET ===---\n");
+			fprintf(stdout, "Total wins so far: %d\n", totalWins);
+			stage = 0;
+			clearBullets(&bullets);
+			goto start_of_stage;
+		}
+		else {
+			clearBullets(&bullets);
+			goto start_of_stage;
+		}
+	}
+	else if (bulletCount(bullets) <= 0) {
+		fprintf(stdout, "No more bullets left.\n");
+		goto start_of_round;
+	}
 
 	//clean up
 	clearBullets(&bullets);

@@ -86,7 +86,7 @@ int bulletCount(BulletsLink head) {
 	return count;
 }
 
-int liveBullets(BulletsLink* head) {
+int liveBullets(BulletsLink head) {
 	int count = 0;
 	BulletsNode* current = head;
 	while (current != NULL) {
@@ -97,7 +97,7 @@ int liveBullets(BulletsLink* head) {
 	return count;
 }
 
-int blankBullets(BulletsLink* head) {
+int blankBullets(BulletsLink head) {
 	int count = 0;
 	BulletsNode* current = head;
 	while (current != NULL) {
