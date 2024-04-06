@@ -39,17 +39,17 @@ startOfTurn:
 			
 			if (infiniteMode) {
 				INFINITE_SAVE* save = create_save_infinite();
-				update_save_inf(save, stage, turn, lives, items, ITEMS_CAP, *bullets, bulletCount(*bullets), *oppHandcuffed, totalWins);
+				update_save_inf(save, *stage, *turn, lives, items, ITEMS_CAP, *bullets, bulletCount(*bullets), *oppHandcuffed, totalWins);
 				output_save_inf(save);
 				destroy_save_inf(save);
 			}
 			else {
 				GAME_SAVE* save = create_save();
-				update_save(save, stage, turn, lives, items, ITEMS_CAP, *bullets, bulletCount(*bullets), *oppHandcuffed);
+				update_save(save, *stage, *turn, lives, items, ITEMS_CAP, *bullets, bulletCount(*bullets), *oppHandcuffed);
 				output_save(save);
 				destroy_save(save);
 			}
-			fprintf(stdout, "Game Saved!\n");
+			fprintf(stdout, "\nGame Saved!\n\n");
 			continue;
 		}
 		if (choice == 3) {
@@ -100,7 +100,7 @@ startOfTurn:
 				*oppHandcuffed = save->dealer_cuffed;
 				destroy_save(save);
 			}
-			fprintf(stdout, "Game Loaded!\n");
+			fprintf(stdout, "\nGame Loaded!\n\n");
 			//show start of turn again 
 			goto startOfTurn;
 			continue;
