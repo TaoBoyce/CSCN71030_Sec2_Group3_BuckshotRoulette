@@ -12,18 +12,9 @@ namespace DealerAITesting
 	public:
 		TEST_METHOD(REQ_DLR_006)
 		{
-			int lives[2] = { 5,5 };
+			int lives[2] = { 2,2 };
 			DIFFICULTY diff = DIF_EASY;
-			ITEM** items = (ITEM**)malloc(2 * sizeof(int*));
-			if (items == NULL) {
-				Assert::Fail();
-			}
-			for (int i = 0; i < 2; i++) {
-				items[i] = (ITEM*)malloc(ITEMS_CAP * sizeof(int));
-				if (items[i] == NULL) {
-					Assert::Fail();
-				}
-			}
+			ITEM_T items[2][ITEMS_CAP];
 
 			for (int i = 0; i < ITEMS_CAP; i++) {
 				items[PLAYER][i] = EMPTY;
@@ -45,16 +36,33 @@ namespace DealerAITesting
 			
 			bool actual = dealerTurn(lives, &bullets, items, &oppHandcuffed, diff);
 			for (int i = 0; i < 5; i++) {
-				Assert::IsTrue(items[DEALER][i] == EMPTY);
+				Assert::IsTrue(items[DEALER][i] == (ITEM_T)EMPTY);
 			}
 			for (int i = 5; i < ITEMS_CAP; i++) {
-				Assert::IsTrue(items[DEALER][i] != EMPTY);
+				Assert::IsTrue(items[DEALER][i] != (ITEM_T)EMPTY);
 			}
 
-			for (int i = 0; i < 2; i++) {
-				free(items[i]);
+			clearBullets(&bullets);
+		}
+		TEST_METHOD(REQ_DLR_007)
+		{
+			int lives[2] = { 5,5 };
+			DIFFICULTY diff = DIF_EASY;
+			ITEM_T items[2][ITEMS_CAP];
+
+			for (int i = 0; i < ITEMS_CAP; i++) {
+				items[PLAYER][i] = EMPTY;
+				items[DEALER][i] = EMPTY;
 			}
-			free(items);
+			BulletsLink bullets = NULL;
+			addBullet(&bullets, LIVE);
+			bool oppHandcuffed = false;
+
+			bool actual = dealerTurn(lives, &bullets, items, &oppHandcuffed, diff);
+			Assert::IsTrue(lives[PLAYER] == 4);
+			Assert::IsTrue(lives[DEALER] == 5);
+			Assert::IsTrue(bulletCount(bullets) == 0);
+
 			clearBullets(&bullets);
 		}
 		
