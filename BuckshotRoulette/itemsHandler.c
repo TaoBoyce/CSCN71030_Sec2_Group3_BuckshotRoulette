@@ -58,7 +58,7 @@ ITEM_T item_remove(ITEM_T *arr, size_t position) {
 }
 
 // Returns -1 on failure
-size_t findItem(ITEM_T item, ITEM_T *items, size_t items_n) {
+int findItem(ITEM_T item, ITEM_T *items, size_t items_n) {
 	if (items == 0) {
 		fprintf(stderr, "Did not recieve a valid array in findItem!\n");
 		return -1;
@@ -82,10 +82,10 @@ void item_clear(ITEM_T *arr, size_t n) {
 	}
 }
 
-bool useItem(ITEM *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown) {
-	ITEM item = *pItem;
+bool useItem(ITEM_T *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown) {
+	ITEM item = (ITEM)(*pItem);
 	if (item == BEER) {
-		if (bulletCount(bullets) == 0) {
+		if (bulletCount(*bullets) == 0) {
 			fprintf(stdout, "Tried to use item: BEER.\n");
 			fprintf(stdout, "No bullets are loaded, item was not used.\n");
 			return false;
@@ -105,6 +105,7 @@ bool useItem(ITEM *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* lives,
 	if (item == MAGNIFYING_GLASS) {
 		*pItem = EMPTY;//change item to empty
 		BULLET b = peekBullet(*bullets);
+		*bulletKnown = true;
 		fprintf(stdout, "Used item: MAGNIFYING GLASS.\n");
 		fprintf(stdout, "Peeked at the next bullet.\n");
 		if (b == LIVE) {
@@ -130,7 +131,7 @@ bool useItem(ITEM *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* lives,
 	if (item == HANDCUFFS) {
 		if (!(*oppHandcuffed)) {
 			*pItem = EMPTY;//change item to empty
-			(*lives)++;
+			*oppHandcuffed = true;
 			fprintf(stdout, "Used item: HANDCUFFS.\n");
 			fprintf(stdout, "Opponent's next turn will be skipped.\n");
 			return true;
@@ -142,7 +143,7 @@ bool useItem(ITEM *pItem, BulletsLink* bullets, bool* oppHandcuffed, int* lives,
 	if (item == HAND_SAW) {
 		if (!(*doubleDamage)) {
 			*pItem = EMPTY;//change item to empty
-			(*lives)++;
+			*doubleDamage = true;
 			fprintf(stdout, "Used item: HAND SAW.\n");
 			fprintf(stdout, "The next LIVE bullet shot THIS TURN will deal double damage.\n");
 			return true;

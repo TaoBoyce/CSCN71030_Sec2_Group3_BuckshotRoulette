@@ -25,7 +25,7 @@ BULLET popBullet(BulletsLink* head);
 
 void printBulletCounts(BulletsLink head);
 
-int bulletCount(BulletsLink* head);
+int bulletCount(BulletsLink head);
 
 int blankBullets(BulletsLink* head);
 

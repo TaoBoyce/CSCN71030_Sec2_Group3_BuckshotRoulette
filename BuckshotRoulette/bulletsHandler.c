@@ -76,7 +76,7 @@ void printBulletCounts(BulletsLink head) {
 
 
 
-int bulletCount(BulletsLink* head) {
+int bulletCount(BulletsLink head) {
 	int count = 0;
 	BulletsNode* current = head;
 	while (current != NULL) {
