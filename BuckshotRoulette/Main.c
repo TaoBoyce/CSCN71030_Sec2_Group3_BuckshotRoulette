@@ -6,6 +6,18 @@
 
 int main(int argc, char **argv) {
 	//get console input
+	DIFFICULTY difficulty = DIF_EASY;
+	bool infiniteMode = false;
+	for (int i = 0; i < argc; ++i)
+	{
+		int num;
+		if (sscanf_s(argv[0], "%d", &num) == 1) {
+			difficulty = convertDifficultyFromBitFlag(num);
+			if (num & INFINITE_FLAG) {
+				infiniteMode = true;
+			}
+		}
+	}
 	//convert console input to infinite mode and difficulty
 	//ask for name
 	//start round
@@ -27,4 +39,17 @@ int main(int argc, char **argv) {
 	//clean up
 	clearBullets(&bullets);
 	return 0;
+}
+
+
+DIFFICULTY convertDifficultyFromBitFlag(int bitflag) {
+	if (bitflag & DIF_HARD) {
+		return DIF_HARD;
+	}
+	if (bitflag & MEDIUM_FLAG) {
+		return DIF_MEDIUM;
+	}
+	if (bitflag & EASY_FLAG) {
+		return DIF_EASY;
+	}
 }
