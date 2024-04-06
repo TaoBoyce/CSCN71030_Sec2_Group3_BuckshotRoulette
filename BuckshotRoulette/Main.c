@@ -41,7 +41,8 @@ int main(int argc, char **argv) {
 	start_of_stage:
 	//start of stage
 	stage++;
-	fprintf(stdout, "---=== START OF STAGE %d ===---\n", stage);
+	round = 0;
+	fprintf(stdout, "\n---=========== START OF STAGE %d ===========---\n", stage);
 	item_add(items[PLAYER], stage*2 - 2);
 	item_add(items[DEALER], stage*2 - 2);
 	lives[PLAYER] = stage * 2;
@@ -51,7 +52,7 @@ int main(int argc, char **argv) {
 	start_of_round:
 	//start of round
 	round++;
-	fprintf(stdout, "---=== START OF ROUND %d ===---\n", round);
+	fprintf(stdout, "\n---======= START OF ROUND %d =======---\n", round);
 	do {
 		clearBullets(&bullets);
 		loadRandomBullets(&bullets, round*2 + 1);
@@ -117,7 +118,7 @@ int main(int argc, char **argv) {
 		}
 	}
 	else if (bulletCount(bullets) <= 0) {
-		fprintf(stdout, "No more bullets left.\n");
+		fprintf(stdout, "\nNo more bullets left.\n");
 		goto start_of_round;
 	}
 

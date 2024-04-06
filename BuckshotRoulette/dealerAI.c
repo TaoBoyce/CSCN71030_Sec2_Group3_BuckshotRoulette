@@ -13,7 +13,7 @@ bool dealerTurn(int lives[2], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], 
 	HANDCUFFS,
 	HAND_SAW
 	*/
-	fprintf(stdout, "-===- DEALER TURN -===-\n");
+	fprintf(stdout, "\n-===- DEALER TURN -===-\n");
 	displayDealerInfo(lives[DEALER], items[DEALER]);
 	bool doubleDamage = false;
 	bool bulletKnown = false;
@@ -123,6 +123,13 @@ bool dealerTurn(int lives[2], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], 
 		//hard target shoots based on whatever reduces the net self damage possibility the most
 		//looks at not only dealer things, but also player hp, handcuffed, player items
 		bool shootSelf = determineTarget(items, bullets, lives, &doubleDamage, bulletKnown, difficulty);
+		fprintf(stdout, "\nThe Dealer has decided to shoot:");
+		if (shootSelf) {
+			fprintf(stdout, " Themselves.\n");
+		}
+		else {
+			fprintf(stdout, " You.\n");
+		}
 		return shootGun(&lives[shootSelf], bullets, shootSelf, doubleDamage);
 	}
 	return false;
@@ -204,7 +211,7 @@ bool determineTarget(ITEM_T* items[], BulletsLink* bullets, int lives[], bool* d
 		else {
 			shootSelf = blank / live > 1;//choose the one with bigger odds
 		}
-
+		
 		return shootSelf;
 	}
 	return false;

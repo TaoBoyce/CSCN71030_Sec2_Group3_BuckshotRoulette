@@ -11,7 +11,7 @@ bool playerTurn(bool infiniteMode, int* stage, int* turn, int* totalWins, int li
 	bool doubleDamage = false;
 	bool bulletKnown = false;
 startOfTurn:
-	fprintf(stdout, "-===- PLAYER TURN -===-\n");
+	fprintf(stdout, "\n-===- PLAYER TURN -===-\n");
 	if (*oppHandcuffed) {
 		fprintf(stdout, "Dealer is handcuffed.\n");
 	}
@@ -20,6 +20,7 @@ startOfTurn:
 	}
 	displayPlayerInfo(lives[PLAYER], items[PLAYER]);
 	displayDealerInfo(lives[DEALER], items[DEALER]);
+	fprintf(stdout, "%d bullets left.\n", bulletCount(*bullets));
 	//show choices to player
 	//show usable items
 	displayPlayerChoices(items[PLAYER]);
@@ -124,7 +125,7 @@ startOfTurn:
 	}
 	
 	//if it's the gun, ask player who they're going to shoot
-	fprintf(stdout, "Select an option: \n");
+	fprintf(stdout, "\n\nSelect an option: \n");
 	fprintf(stdout, "1: Shoot the Dealer.\n");
 	fprintf(stdout, "2: Shoot yourself. (Shooting yourself with a blank skips the opponent's turn.)\n");
 	int target = 0;
