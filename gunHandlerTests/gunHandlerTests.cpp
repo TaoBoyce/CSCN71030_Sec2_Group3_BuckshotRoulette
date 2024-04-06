@@ -1,8 +1,7 @@
-#include "pch.h"
 #include "CppUnitTest.h"
 extern "C" {
-#include "../BuckshotRoulette/bulletsHandler.h"
-#include "../BuckshotRoulette/gunHandler.h"
+#include "bulletsHandler.h"
+#include "gunHandler.h"
 }
 
 
