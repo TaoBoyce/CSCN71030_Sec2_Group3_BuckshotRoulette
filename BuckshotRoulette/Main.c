@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include"bulletsHandler.h"
 #include"textInput.h"
+#include "playerTurn.h"
 
 int main(void) {
 	//get console input
@@ -14,7 +15,16 @@ int main(void) {
 	//loop both of the above until one of their lives hits 0
 	//3 rounds in non-infinite
 	//infinite rounds in infinite
-
-	//clean up 
+	int lives[2] = { 5,5 };
+	BulletsLink bullets = NULL;
+	ITEM_T items[2][ITEMS_CAP];
+	for (int i = 0; i < ITEMS_CAP; i++) {
+		items[PLAYER][i] = EMPTY;
+		items[DEALER][i] = EMPTY;
+	}
+	item_add(items, 4);
+	bool oppHandcuffed = false;
+	//clean up
+	clearBullets(&bullets);
 	return 0;
 }

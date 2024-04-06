@@ -214,6 +214,9 @@ void displayDealerInfo(int dLives, ITEM_T items[]) {
 	fprintf(stdout, "Dealer Lives: %d\n", dLives);
 	fprintf(stdout, "Dealer Items:\n");
 	for (int i = 0; i < ITEMS_CAP; i++) {
-		fprintf(stdout, "%s\n", item_text(items[i]));
+		if (items[i] != EMPTY) {
+			fprintf(stdout, "%s ", item_text(items[i]));
+		}
 	}
+	fprintf(stdout, "\n");
 }

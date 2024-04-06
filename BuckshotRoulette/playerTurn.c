@@ -6,7 +6,7 @@
 #include <stdio.h>
 //need to add a way to leave the game, probably as an option
 
-bool playerTurn(bool infiniteMode, int* stage, int* turn, int* totalWins, int lives[], BulletsLink* bullets, ITEM* items[], bool* oppHandcuffed, char* name) {
+bool playerTurn(bool infiniteMode, int* stage, int* turn, int* totalWins, int lives[], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], bool* oppHandcuffed, char* name) {
 	int choice = 0;
 	bool doubleDamage = false;
 	bool bulletKnown = false;
@@ -25,7 +25,7 @@ startOfTurn:
 	displayPlayerChoices(items[PLAYER]);
 	//select choice using number from player
 	while (choice != 1) {
-		choice = getIntInput("Input a number: ");
+		choice = getIntInput("Input a number");
 		//if it's an item continue looping unless there's no usable items left
 		if (choice <= 0) {
 			fprintf(stdout, "Invalid input, try again.\n");
@@ -39,13 +39,13 @@ startOfTurn:
 			
 			if (infiniteMode) {
 				INFINITE_SAVE* save = create_save_infinite();
-				update_save_inf(save, stage, turn, lives, items, ITEMS_CAP, *bullets, bulletCount(bullets), *oppHandcuffed, totalWins);
+				update_save_inf(save, stage, turn, lives, items, ITEMS_CAP, *bullets, bulletCount(*bullets), *oppHandcuffed, totalWins);
 				output_save_inf(save);
 				destroy_save_inf(save);
 			}
 			else {
 				GAME_SAVE* save = create_save();
-				update_save(save, stage, turn, lives, items, ITEMS_CAP, *bullets, bulletCount(bullets), *oppHandcuffed);
+				update_save(save, stage, turn, lives, items, ITEMS_CAP, *bullets, bulletCount(*bullets), *oppHandcuffed);
 				output_save(save);
 				destroy_save(save);
 			}
@@ -108,14 +108,14 @@ startOfTurn:
 		//done this way so it matches up with the display
 		int j = 3;
 		for (int i = 0; i < ITEMS_CAP; i++) {
-			ITEM* pItem = &(items[PLAYER][i]);
-			if (pItem == EMPTY) {
+			ITEM_T* pItem = &(items[PLAYER][i]);
+			if (*pItem == (ITEM_T)EMPTY) {
 				continue;
 			}
 			j++;
 			if (j == choice) {
 				useItem(pItem, bullets, oppHandcuffed, &(lives[PLAYER]), &doubleDamage, &bulletKnown);
-				if (bulletCount(bullets) == 0) {//if the player decides to rack all the bullets
+				if (bulletCount(*bullets) == 0) {//if the player decides to rack all the bullets
 					return false;
 				}
 				break;
@@ -129,7 +129,7 @@ startOfTurn:
 	fprintf(stdout, "2: Shoot yourself. (Shooting yourself with a blank skips the opponent's turn.)\n");
 	int target = 0;
 	while (target != 1 && target != 2) {
-		target = getIntInput("Input a number: ");
+		target = getIntInput("Input a number");
 		if (target != 1 && target != 2) {
 			fprintf(stdout, "Invalid input, try again.\n");
 		}
@@ -144,7 +144,7 @@ startOfTurn:
 	return false;
 }
 
-void displayPlayerChoices(ITEM pItems[]) {
+void displayPlayerChoices(ITEM_T pItems[]) {
 	fprintf(stdout, "Select an option: \n");
 	fprintf(stdout, "1: Aim GUN. (Ends the turn.)\n");
 	fprintf(stdout, "2: Save Game.\n");
@@ -159,7 +159,7 @@ void displayPlayerChoices(ITEM pItems[]) {
 	}
 }
 
-void displayPlayerInfo(int pLives, ITEM pItems[]) {
+void displayPlayerInfo(int pLives, ITEM_T pItems[]) {
 	fprintf(stdout, "Player Lives: % d\n", pLives);
 	fprintf(stdout, "Player Items: ");
 	for (int i = 0; i < ITEMS_CAP; i++) {
