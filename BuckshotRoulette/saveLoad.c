@@ -202,6 +202,9 @@ bool input_save(GAME_SAVE *dest) {
 bool input_save_inf(INFINITE_SAVE *dest) {
 	FILE *file = fopen(INFSAVE_NAME, "r");
 
+	if (file == NULL)
+		return NULL;
+
 	fscanf(file, "Stage: %d\n", &(dest->stage));
 	fscanf(file, "Turn: %d\n", &(dest->turn));
 	fscanf(file, "Lives1: %d\n", &(dest->lives[0]));
