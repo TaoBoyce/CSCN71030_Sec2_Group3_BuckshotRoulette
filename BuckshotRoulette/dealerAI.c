@@ -13,7 +13,7 @@ bool dealerTurn(int lives[2], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], 
 	HANDCUFFS,
 	HAND_SAW
 	*/
-	fprintf(stdout, "-===- DEALER TURN -===-\n");
+	fprintf(stdout, "\n-===- DEALER TURN -===-\n");
 	displayDealerInfo(lives[DEALER], items[DEALER]);
 	bool doubleDamage = false;
 	bool bulletKnown = false;
@@ -61,6 +61,13 @@ bool dealerTurn(int lives[2], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], 
 
 		//easy target shoots 50/50 if it's unknown
 		bool shootSelf = determineTarget(items, bullets, lives, &doubleDamage, bulletKnown, difficulty);
+		fprintf(stdout, "\nThe Dealer has decided to shoot:");
+		if (shootSelf) {
+			fprintf(stdout, " Themselves.\n");
+		}
+		else {
+			fprintf(stdout, " You.\n");
+		}
 		return shootGun(&lives[shootSelf], bullets, shootSelf, doubleDamage);
 	}
 	if (difficulty == DIF_MEDIUM) {
@@ -87,6 +94,13 @@ bool dealerTurn(int lives[2], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], 
 
 		//medium target shoots based on the chances of whichever is more likely
 		bool shootSelf = determineTarget(items, bullets, lives, &doubleDamage, bulletKnown, difficulty);
+		fprintf(stdout, "\nThe Dealer has decided to shoot:");
+		if (shootSelf) {
+			fprintf(stdout, " Themselves.\n");
+		}
+		else {
+			fprintf(stdout, " You.\n");
+		}
 		return shootGun(&lives[shootSelf], bullets, shootSelf, doubleDamage);
 	}
 	if (difficulty == DIF_HARD) {
@@ -123,6 +137,13 @@ bool dealerTurn(int lives[2], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], 
 		//hard target shoots based on whatever reduces the net self damage possibility the most
 		//looks at not only dealer things, but also player hp, handcuffed, player items
 		bool shootSelf = determineTarget(items, bullets, lives, &doubleDamage, bulletKnown, difficulty);
+		fprintf(stdout, "\nThe Dealer has decided to shoot:");
+		if (shootSelf) {
+			fprintf(stdout, " Themselves.\n");
+		}
+		else {
+			fprintf(stdout, " You.\n");
+		}
 		return shootGun(&lives[shootSelf], bullets, shootSelf, doubleDamage);
 	}
 	return false;
@@ -204,7 +225,7 @@ bool determineTarget(ITEM_T* items[], BulletsLink* bullets, int lives[], bool* d
 		else {
 			shootSelf = blank / live > 1;//choose the one with bigger odds
 		}
-
+		
 		return shootSelf;
 	}
 	return false;
@@ -212,8 +233,11 @@ bool determineTarget(ITEM_T* items[], BulletsLink* bullets, int lives[], bool* d
 
 void displayDealerInfo(int dLives, ITEM_T items[]) {
 	fprintf(stdout, "Dealer Lives: %d\n", dLives);
-	fprintf(stdout, "Dealer Items:\n");
+	fprintf(stdout, "Dealer Items: ");
 	for (int i = 0; i < ITEMS_CAP; i++) {
-		fprintf(stdout, "%s\n", item_text(items[i]));
+		if (items[i] != EMPTY) {
+			fprintf(stdout, "%s | ", item_text(items[i]));
+		}
 	}
+	fprintf(stdout, "\n");
 }
