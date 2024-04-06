@@ -16,11 +16,12 @@ void item_add(ITEM_T * arr, size_t n) {
 		fprintf(stderr, "Did not recieve a valid array in item_add!\n");
 		return;
 	}
+	// In case srand has not been used before
+	srand((unsigned int)time(0));
 
 	for (size_t i = 0; i < n; i++) {
 		if (arr[i] == EMPTY) {
-			// In case srand has not been used before
-			srand((unsigned int) time(0));
+			
 			arr[i] = (rand() % 5)+1;
 		}
 	}
