@@ -6,26 +6,27 @@
 #include <stdio.h>
 //need to add a way to leave the game, probably as an option
 
-bool playerTurn(bool infiniteMode, int* stage, int* turn, int* totalWins, int lives[], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], bool* oppHandcuffed, char* name) {
+bool playerTurn(bool infiniteMode, int* stage, int* turn, int* totalWins, int lives[], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], bool* oppHandcuffed, char* name, bool* quit) {
 	int choice = 0;
 	bool doubleDamage = false;
 	bool bulletKnown = false;
 startOfTurn:
 	fprintf(stdout, "\n-===- PLAYER TURN -===-\n");
-	if (*oppHandcuffed) {
-		fprintf(stdout, "Dealer is handcuffed.\n");
-	}
-	if (doubleDamage) {
-		fprintf(stdout, "The next LIVE shot will deal double damage.\n");
-	}
-	displayPlayerInfo(lives[PLAYER], items[PLAYER]);
-	displayDealerInfo(lives[DEALER], items[DEALER]);
-	fprintf(stdout, "%d bullets left.\n", bulletCount(*bullets));
-	//show choices to player
-	//show usable items
-	displayPlayerChoices(items[PLAYER]);
-	//select choice using number from player
 	while (choice != 1) {
+		//show player info
+		if (*oppHandcuffed) {
+			fprintf(stdout, "Dealer is handcuffed.\n");
+		}
+		if (doubleDamage) {
+			fprintf(stdout, "The next LIVE shot will deal double damage.\n");
+		}
+		displayPlayerInfo(lives[PLAYER], items[PLAYER]);
+		displayDealerInfo(lives[DEALER], items[DEALER]);
+		fprintf(stdout, "%d bullets left.\n", bulletCount(*bullets));
+		//show choices to player
+		//show usable items
+		displayPlayerChoices(items[PLAYER]);
+		//select choice using number from player
 		choice = getIntInput("Input a number");
 		//if it's an item continue looping unless there's no usable items left
 		if (choice <= 0) {
@@ -106,8 +107,14 @@ startOfTurn:
 			goto startOfTurn;
 			continue;
 		}
+		if (choice == 4) {
+			//quit
+			fprintf(stdout, "\nQuitting...\n");
+			*quit = true;
+			return;
+		}
 		//done this way so it matches up with the display
-		int j = 3;
+		int j = 4;
 		for (int i = 0; i < ITEMS_CAP; i++) {
 			ITEM_T* pItem = &(items[PLAYER][i]);
 			if (*pItem == (ITEM_T)EMPTY) {
@@ -125,7 +132,7 @@ startOfTurn:
 	}
 	
 	//if it's the gun, ask player who they're going to shoot
-	fprintf(stdout, "\n\nSelect an option: \n");
+	fprintf(stdout, "\nSelect an option: \n");
 	fprintf(stdout, "1: Shoot the Dealer.\n");
 	fprintf(stdout, "2: Shoot yourself. (Shooting yourself with a blank skips the opponent's turn.)\n");
 	int target = 0;
@@ -150,7 +157,8 @@ void displayPlayerChoices(ITEM_T pItems[]) {
 	fprintf(stdout, "1: Aim GUN. (Ends the turn.)\n");
 	fprintf(stdout, "2: Save Game.\n");
 	fprintf(stdout, "3: Load Game.\n");
-	int j = 3;
+	fprintf(stdout, "4: Quit the game (Without saving)\n");
+	int j = 4;
 	for (int i = 0; i < ITEMS_CAP; i++) {
 		if (pItems[i] == EMPTY) {
 			continue;

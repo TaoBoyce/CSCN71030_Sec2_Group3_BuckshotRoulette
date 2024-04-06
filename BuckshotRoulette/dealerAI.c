@@ -61,6 +61,13 @@ bool dealerTurn(int lives[2], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], 
 
 		//easy target shoots 50/50 if it's unknown
 		bool shootSelf = determineTarget(items, bullets, lives, &doubleDamage, bulletKnown, difficulty);
+		fprintf(stdout, "\nThe Dealer has decided to shoot:");
+		if (shootSelf) {
+			fprintf(stdout, " Themselves.\n");
+		}
+		else {
+			fprintf(stdout, " You.\n");
+		}
 		return shootGun(&lives[shootSelf], bullets, shootSelf, doubleDamage);
 	}
 	if (difficulty == DIF_MEDIUM) {
@@ -87,6 +94,13 @@ bool dealerTurn(int lives[2], BulletsLink* bullets, ITEM_T items[2][ITEMS_CAP], 
 
 		//medium target shoots based on the chances of whichever is more likely
 		bool shootSelf = determineTarget(items, bullets, lives, &doubleDamage, bulletKnown, difficulty);
+		fprintf(stdout, "\nThe Dealer has decided to shoot:");
+		if (shootSelf) {
+			fprintf(stdout, " Themselves.\n");
+		}
+		else {
+			fprintf(stdout, " You.\n");
+		}
 		return shootGun(&lives[shootSelf], bullets, shootSelf, doubleDamage);
 	}
 	if (difficulty == DIF_HARD) {

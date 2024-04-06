@@ -6,6 +6,12 @@
 #include"textInput.h"
 #include "playerTurn.h"
 #include "dealerAI.h"
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+#define WAIT_TIME 1
 
 int main(int argc, char **argv) {
 	srand(time(NULL));
@@ -63,6 +69,7 @@ int main(int argc, char **argv) {
 	bool skipOpponent = false;
 	bool oppHandcuffed = false;
 	bool handcuffsTriggered = false;
+	bool quit = false;
 	while (lives[PLAYER] > 0 && lives[DEALER] > 0 && bulletCount(bullets) > 0) {
 		skipOpponent = false;
 		oppHandcuffed = false;
@@ -71,10 +78,18 @@ int main(int argc, char **argv) {
 			if (oppHandcuffed) {
 				handcuffsTriggered = true;
 			}
-			skipOpponent = playerTurn(infiniteMode, &stage, &round, &totalWins, lives, &bullets, items, &oppHandcuffed, name);
+			skipOpponent = playerTurn(infiniteMode, &stage, &round, &totalWins, lives, &bullets, items, &oppHandcuffed, name, &quit);
+			if (quit) {
+				goto clean_up;
+			}
+#ifdef _WIN32
+			Sleep(WAIT_TIME);
+#else
+			Sleep(WAIT_TIME * 1000);
+#endif
 		} while ((skipOpponent | (oppHandcuffed && !handcuffsTriggered)) && bulletCount(bullets) > 0);
 
-		if (bulletCount <= 0) {
+		if (bulletCount(bullets) <= 0) {
 			break;
 		}
 		//loop dealer's turn until they don't skip opponent/run out of bullets
@@ -86,6 +101,11 @@ int main(int argc, char **argv) {
 				handcuffsTriggered = true;
 			}
 			skipOpponent = dealerTurn(lives, &bullets, items, &oppHandcuffed, difficulty);
+#ifdef _WIN32
+			Sleep(WAIT_TIME);
+#else
+			Sleep(WAIT_TIME * 1000);
+#endif
 		} while ((skipOpponent | (oppHandcuffed && !handcuffsTriggered)) && bulletCount(bullets) > 0);
 	}
 	//if lives have run out or bullets have run out
@@ -121,8 +141,9 @@ int main(int argc, char **argv) {
 		fprintf(stdout, "\nNo more bullets left.\n");
 		goto start_of_round;
 	}
-
+	
 	//clean up
+	clean_up:
 	clearBullets(&bullets);
 	return 0;
 }
