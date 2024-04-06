@@ -25,4 +25,4 @@ ITEM_T item_remove(ITEM_T *arr, size_t position);
 
 void item_clear(ITEM_T *arr, size_t n);
 
-bool useItem(ITEM *item, BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown);
+bool useItem(ITEM_T *item, BulletsLink* bullets, bool* oppHandcuffed, int* lives, bool* doubleDamage, bool* bulletKnown);
