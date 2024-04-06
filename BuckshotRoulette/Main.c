@@ -17,7 +17,6 @@ int main(void) {
 	//infinite rounds in infinite
 	int lives[2] = { 5,5 };
 	BulletsLink bullets = NULL;
-	addBullet(&bullets, LIVE);
 	ITEM_T items[2][ITEMS_CAP];
 	for (int i = 0; i < ITEMS_CAP; i++) {
 		items[PLAYER][i] = EMPTY;
@@ -25,10 +24,6 @@ int main(void) {
 	}
 	item_add(items, 4);
 	bool oppHandcuffed = false;
-	playerTurn(false, 1, 1, 1, lives, &bullets, items, &oppHandcuffed, "Tao");
-
-	displayDealerInfo(lives[DEALER], items[DEALER]);
-	printBulletCounts(bullets);
 	//clean up
 	clearBullets(&bullets);
 	return 0;
