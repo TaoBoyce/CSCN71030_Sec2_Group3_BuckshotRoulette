@@ -160,7 +160,7 @@ void displayPlayerChoices(ITEM_T pItems[]) {
 }
 
 void displayPlayerInfo(int pLives, ITEM_T pItems[]) {
-	fprintf(stdout, "Player Lives: % d\n", pLives);
+	fprintf(stdout, "Player Lives: %d\n", pLives);
 	fprintf(stdout, "Player Items: ");
 	for (int i = 0; i < ITEMS_CAP; i++) {
 		if (pItems[i] != EMPTY) {

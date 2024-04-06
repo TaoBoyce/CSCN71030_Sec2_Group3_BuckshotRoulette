@@ -42,8 +42,8 @@ int main(int argc, char **argv) {
 	//start of stage
 	stage++;
 	fprintf(stdout, "---=== START OF STAGE %d ===---\n", stage);
-	item_add(items[PLAYER], stage*2);
-	item_add(items[DEALER], stage*2);
+	item_add(items[PLAYER], stage*2 - 2);
+	item_add(items[DEALER], stage*2 - 2);
 	lives[PLAYER] = stage * 2;
 	lives[DEALER] = stage * 2;
 	fprintf(stdout, "Lives set to %d.\n", lives[PLAYER]);
@@ -54,8 +54,8 @@ int main(int argc, char **argv) {
 	fprintf(stdout, "---=== START OF ROUND %d ===---\n", round);
 	do {
 		clearBullets(&bullets);
-		loadRandomBullets(&bullets, round*2 + 2);
-	} while (liveBullets(bullets) <= round || blankBullets(bullets) <= round);
+		loadRandomBullets(&bullets, round*2 + 1);
+	} while (liveBullets(bullets) < round || blankBullets(bullets) < round);
 	printBulletCounts(bullets);
 
 	//loop player's turn until they don't skip opponent/run out of bullets
