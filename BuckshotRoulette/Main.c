@@ -29,6 +29,25 @@ int main(int argc, char **argv) {
 			}
 		}
 	}
+	fprintf(stdout, "Difficulty: ");
+	switch (difficulty) {
+	case DIF_EASY:
+		fprintf(stdout, "Easy\n");
+		break;
+	case DIF_MEDIUM:
+		fprintf(stdout, "Medium\n");
+		break;
+	case DIF_HARD:
+		fprintf(stdout, "Hard\n");
+		break;
+	}
+	fprintf(stdout, "Infinite mode: ");
+	if (infiniteMode) {
+		fprintf(stdout, "True\n");
+	}
+	else {
+		fprintf(stdout, "False\n");
+	}
 	//ask for name
 	char* name = getTextInput("Input your name");
 	//start round
@@ -83,9 +102,9 @@ int main(int argc, char **argv) {
 				goto clean_up;
 			}
 #ifdef _WIN32
-			Sleep(WAIT_TIME);
-#else
 			Sleep(WAIT_TIME * 1000);
+#else
+			Sleep(WAIT_TIME);
 #endif
 		} while ((skipOpponent | (oppHandcuffed && !handcuffsTriggered)) && bulletCount(bullets) > 0);
 
@@ -102,9 +121,9 @@ int main(int argc, char **argv) {
 			}
 			skipOpponent = dealerTurn(lives, &bullets, items, &oppHandcuffed, difficulty);
 #ifdef _WIN32
-			Sleep(WAIT_TIME);
-#else
 			Sleep(WAIT_TIME * 1000);
+#else
+			Sleep(WAIT_TIME);
 #endif
 		} while ((skipOpponent | (oppHandcuffed && !handcuffsTriggered)) && bulletCount(bullets) > 0);
 	}
