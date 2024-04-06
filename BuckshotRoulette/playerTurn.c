@@ -136,10 +136,10 @@ startOfTurn:
 	}
 
 	if (target == 1) {//shoot dealer
-		return shootGun(lives[DEALER], bullets, false, doubleDamage);
+		return shootGun(&lives[DEALER], bullets, false, doubleDamage);
 	}
 	if (target == 2) {//shoot self
-		return shootGun(lives[PLAYER], bullets, true, doubleDamage);
+		return shootGun(&lives[PLAYER], bullets, true, doubleDamage);
 	}
 	return false;
 }
@@ -164,7 +164,7 @@ void displayPlayerInfo(int pLives, ITEM_T pItems[]) {
 	fprintf(stdout, "Player Items: ");
 	for (int i = 0; i < ITEMS_CAP; i++) {
 		if (pItems[i] != EMPTY) {
-			fprintf(stdout, "%s ", item_text(pItems[i]));
+			fprintf(stdout, "%s | ", item_text(pItems[i]));
 		}
 	}
 	fprintf(stdout, "\n");

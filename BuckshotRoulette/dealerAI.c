@@ -212,10 +212,10 @@ bool determineTarget(ITEM_T* items[], BulletsLink* bullets, int lives[], bool* d
 
 void displayDealerInfo(int dLives, ITEM_T items[]) {
 	fprintf(stdout, "Dealer Lives: %d\n", dLives);
-	fprintf(stdout, "Dealer Items:\n");
+	fprintf(stdout, "Dealer Items: ");
 	for (int i = 0; i < ITEMS_CAP; i++) {
 		if (items[i] != EMPTY) {
-			fprintf(stdout, "%s ", item_text(items[i]));
+			fprintf(stdout, "%s | ", item_text(items[i]));
 		}
 	}
 	fprintf(stdout, "\n");
