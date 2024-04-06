@@ -33,10 +33,13 @@ int main(int argc, char **argv) {
 	switch (difficulty) {
 	case DIF_EASY:
 		fprintf(stdout, "Easy\n");
+		break;
 	case DIF_MEDIUM:
 		fprintf(stdout, "Medium\n");
+		break;
 	case DIF_HARD:
 		fprintf(stdout, "Hard\n");
+		break;
 	}
 	fprintf(stdout, "Infinite mode: ");
 	if (infiniteMode) {
