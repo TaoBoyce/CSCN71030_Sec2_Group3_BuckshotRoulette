@@ -5,7 +5,6 @@
 #include<time.h>
 
 void loadRandomBullets(BulletsLink* head, int numBullets) {
-	srand(time(NULL));
 	for (int i = 0; i < numBullets; i++) {
 		BULLET type = rand() % 2 == 0 ? LIVE : BLANK;
 		addBullet(head, type);

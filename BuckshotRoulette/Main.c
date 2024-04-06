@@ -8,6 +8,7 @@
 #include "dealerAI.h"
 
 int main(int argc, char **argv) {
+	srand(time(NULL));
 	//get console input
 	//convert console input to infinite mode and difficulty
 	DIFFICULTY difficulty = DIF_EASY;
