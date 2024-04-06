@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
 	for (int i = 0; i < argc; ++i)
 	{
 		int num;
-		if (sscanf_s(argv[0], "%d", &num) == 1) {
+		if (sscanf_s(argv[1], "%d", &num) == 1) {
 			difficulty = convertDifficultyFromBitFlag(num);
 			if (num & INFINITE_FLAG) {
 				infiniteMode = true;
@@ -169,7 +169,7 @@ int main(int argc, char **argv) {
 
 
 DIFFICULTY convertDifficultyFromBitFlag(int bitflag) {
-	if (bitflag & DIF_HARD) {
+	if (bitflag & HARD_FLAG) {
 		return DIF_HARD;
 	}
 	if (bitflag & MEDIUM_FLAG) {
