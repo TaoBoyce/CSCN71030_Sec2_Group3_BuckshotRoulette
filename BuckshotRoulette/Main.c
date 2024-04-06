@@ -6,6 +6,7 @@
 
 int main(int argc, char **argv) {
 	//get console input
+	//convert console input to infinite mode and difficulty
 	DIFFICULTY difficulty = DIF_EASY;
 	bool infiniteMode = false;
 	for (int i = 0; i < argc; ++i)
@@ -18,24 +19,28 @@ int main(int argc, char **argv) {
 			}
 		}
 	}
-	//convert console input to infinite mode and difficulty
 	//ask for name
+	char* name = getTextInput("Input your name");
 	//start round
+	int stage = 1;
+	int round = 1;
+	int totalWins = 0;
 	//load bullets and items
-	//loop player's turn until they don't skip opponent/run out of bullets
-	//loop dealer's turn until they don't skip opponent/run out of bullets
-	//loop both of the above until one of their lives hits 0
-	//3 rounds in non-infinite
-	//infinite rounds in infinite
-	int lives[2] = { 5,5 };
 	BulletsLink bullets = NULL;
+	loadRandomBullets(&bullets, round * 2);
 	ITEM_T items[2][ITEMS_CAP];
 	for (int i = 0; i < ITEMS_CAP; i++) {
 		items[PLAYER][i] = EMPTY;
 		items[DEALER][i] = EMPTY;
 	}
-	item_add(items, 4);
-	bool oppHandcuffed = false;
+	item_add(items, ITEMS_CAP);
+	//loop player's turn until they don't skip opponent/run out of bullets
+	//loop dealer's turn until they don't skip opponent/run out of bullets
+	//loop both of the above until one of their lives hits 0
+	//3 rounds in non-infinite
+	//infinite stages in infinite
+	
+
 	//clean up
 	clearBullets(&bullets);
 	return 0;
